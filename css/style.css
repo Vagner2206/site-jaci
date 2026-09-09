@@ -1,0 +1,2965 @@
+/* =========================================================
+   CONFIGURAÇÕES GERAIS
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --azul: #3b82f6;
+    --azul-claro: #60a5fa;
+    --azul-escuro: #07111f;
+    --branco: #ffffff;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    background: var(--azul-escuro);
+    color: var(--branco);
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   SEÇÕES
+========================================================= */
+
+section,
+header {
+    min-height: 100vh;
+    padding: 80px 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   TÍTULOS
+========================================================= */
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+p {
+    max-width: 700px;
+    margin-bottom: 20px;
+}
+
+section h2 {
+    position: relative;
+    display: inline-block;
+}
+
+section h2::after {
+    content: "";
+
+    display: block;
+
+    width: 50px;
+    height: 2px;
+
+    margin: 12px auto 0;
+
+    background: var(--azul-claro);
+
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   BOTÕES GERAIS
+========================================================= */
+
+button {
+    border: none;
+
+    padding: 15px 30px;
+
+    border-radius: 30px;
+
+    background: var(--azul);
+    color: white;
+
+    font-family: inherit;
+    font-size: 1rem;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: #2563eb;
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+button:focus-visible {
+    outline: 2px solid #93c5fd;
+    outline-offset: 4px;
+}
+
+
+/* =========================================================
+   TELA INICIAL
+========================================================= */
+
+#inicio {
+    position: relative;
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(3, 10, 20, 0.85),
+            rgba(8, 32, 64, 0.80)
+        ),
+        url("../imagens/fundo.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    overflow: hidden;
+}
+
+#inicio::before {
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    background: rgba(59, 130, 246, 0.20);
+
+    border-radius: 50%;
+
+    filter: blur(80px);
+
+    top: 20%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   ABERTURA
+========================================================= */
+
+.abertura {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 800px;
+
+    padding: 0 10px;
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pequena-frase {
+    font-size: 1rem;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    color: #93c5fd;
+
+    margin-bottom: 15px;
+}
+
+.abertura h1 {
+    font-size: clamp(4rem, 12vw, 8rem);
+
+    font-weight: 400;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 15px;
+
+    text-shadow:
+        0 0 20px rgba(96, 165, 250, 0.4);
+}
+
+.abertura h1 span {
+    color: var(--azul-claro);
+}
+
+.subtitulo {
+    font-size: 1.2rem;
+
+    max-width: 500px;
+
+    color: #dbeafe;
+
+    margin-bottom: 35px;
+}
+
+.indicacao {
+    margin-top: 60px;
+
+    font-size: 0.85rem;
+
+    color: rgba(255, 255, 255, 0.55);
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DA ABERTURA
+========================================================= */
+
+.abertura > * {
+    opacity: 0;
+
+    animation: aparecer 1s ease forwards;
+}
+
+.abertura .pequena-frase {
+    animation-delay: 0.3s;
+}
+
+.abertura h1 {
+    animation-delay: 0.6s;
+}
+
+.abertura .subtitulo {
+    animation-delay: 0.9s;
+}
+
+.abertura .btn-surpresa {
+    animation-delay: 1.2s;
+}
+
+.abertura .indicacao {
+    animation-delay: 1.5s;
+}
+
+@keyframes aparecer {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   BOTÃO SURPRESA
+========================================================= */
+
+.btn-surpresa {
+    position: relative;
+
+    padding: 16px 35px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    border-radius: 50px;
+
+    background: rgba(59, 130, 246, 0.25);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    color: white;
+
+    font-size: 1rem;
+
+    letter-spacing: 1px;
+
+    box-shadow:
+        0 0 25px rgba(59, 130, 246, 0.25);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.btn-surpresa:hover {
+    transform: translateY(-4px) scale(1.03);
+
+    background: rgba(59, 130, 246, 0.45);
+
+    box-shadow:
+        0 0 35px rgba(59, 130, 246, 0.45);
+}
+
+
+/* =========================================================
+   ESCONDER ABERTURA
+========================================================= */
+
+.esconder {
+    opacity: 0;
+    visibility: hidden;
+
+    transform: scale(0.97);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease,
+        visibility 1s ease;
+}
+
+/* =========================================================
+   HISTÓRIA
+========================================================= */
+
+#historia {
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.cartoes-historia {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+
+    /*
+     * A altura é definida pelo JavaScript
+     * de acordo com o cartão actual.
+     */
+
+    transition: height 0.35s ease;
+}
+
+
+/* =========================================================
+   CARTÕES DA HISTÓRIA
+========================================================= */
+
+.momento {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    /*
+     * IMPORTANTE:
+     * Os cartões deixam de ocupar espaço
+     * uns atrás dos outros.
+     */
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        translateY(35px)
+        scale(0.98);
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.45s ease,
+        transform 0.45s cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        visibility 0s linear 0.45s;
+}
+
+
+/* =========================================================
+   CARTÃO VISÍVEL
+========================================================= */
+
+.momento.visivel {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateY(0)
+        scale(1);
+
+    z-index: 2;
+
+    pointer-events: auto;
+
+    transition:
+        opacity 0.45s ease,
+        transform 0.45s cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        visibility 0s linear 0s;
+}
+
+
+/* =========================================================
+   GARANTIR QUE O CONTEÚDO NÃO CRIA ESCADA
+========================================================= */
+
+.cartoes-historia .momento {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    #historia {
+        overflow: hidden;
+    }
+
+    .cartoes-historia {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .momento {
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   GALERIA
+========================================================= */
+
+#galeria {
+    background: #081a2e;
+}
+
+#galeria div {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 20px;
+}
+
+#galeria img {
+
+    width: 280px;
+    height: 280px;
+
+    object-fit: cover;
+
+    border-radius: 20px;
+
+    border: 2px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.3);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+#galeria img:hover {
+
+    transform:
+        scale(1.04)
+        rotate(1deg);
+
+    box-shadow:
+        0 15px 40px rgba(59, 130, 246, 0.25);
+}
+
+/* =========================================
+   GALERIA DE MEMÓRIAS
+========================================= */
+
+#galeria {
+    background: #07111f;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+#galeria h2 {
+    margin-bottom: 40px;
+}
+
+
+/* GRELHA DAS FOTOS */
+
+
+.galeria-fotos {
+    width: 100% !important;
+    max-width: 900px !important;
+
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 18px !important;
+
+    margin: 0 auto;
+}
+
+
+/* CADA FOTO */
+
+.foto-memoria {
+    position: relative;
+
+    width: 100%;
+    height: 300px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.05);
+
+    border: 1px solid rgba(147, 197, 253, 0.15);
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+
+/* IMAGEM */
+
+.foto-memoria img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform 0.6s ease,
+        filter 0.6s ease;
+}
+
+
+/* EFEITO AO PASSAR O RATO */
+
+.foto-memoria:hover img {
+    transform: scale(1.06);
+
+    filter: brightness(1.08);
+}
+
+/* =========================================
+   ANIMAÇÃO DE ENTRADA DA GALERIA
+========================================= */
+
+.foto-memoria {
+    opacity: 0;
+    transform: translateY(35px) scale(0.97);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.foto-memoria.visivel {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* =========================================
+   VISUALIZADOR DA GALERIA
+========================================= */
+
+.visualizador {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.92);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.4s ease,
+        visibility 0.4s ease;
+}
+
+.visualizador.aberto {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* IMAGEM */
+
+.imagem-ampliada-container {
+    width: min(85vw, 900px);
+    height: min(85vh, 800px);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transform: scale(0.85);
+
+    transition:
+        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.visualizador.aberto .imagem-ampliada-container {
+    transform: scale(1);
+}
+
+#imagemAmpliada {
+    max-width: 100%;
+    max-height: 100%;
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+
+/* BOTÃO FECHAR */
+
+.fechar-galeria {
+    position: absolute;
+
+    top: 25px;
+    right: 30px;
+
+    width: 50px;
+    height: 50px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    color: white;
+
+    font-size: 32px;
+
+    cursor: pointer;
+
+    z-index: 2;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+.fechar-galeria:hover {
+    background: rgba(255, 255, 255, 0.22);
+
+    transform: rotate(90deg);
+}
+
+
+/* SETAS */
+
+.navegacao-galeria {
+    position: absolute;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 55px;
+    height: 55px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    color: white;
+
+    font-size: 42px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    z-index: 2;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+.navegacao-galeria:hover {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.navegacao-galeria.anterior {
+    left: 25px;
+}
+
+.navegacao-galeria.seguinte {
+    right: 25px;
+}
+
+/* =========================================================
+   VÍDEOS DA GALERIA
+========================================================= */
+
+.foto-memoria video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: inherit;
+    background: #000;
+}
+
+/* =========================================================
+   VÍDEO NO VISUALIZADOR
+========================================================= */
+
+#videoAmpliado {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 18px;
+    background: #000;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+
+/* =========================================================
+   SOBRE TI
+========================================================= */
+
+#sobre-ela {
+    background: #07111f;
+}
+
+.sobre-ti-conteudo {
+    width: 100%;
+    max-width: 760px;
+}
+
+.sobre-ti-conteudo p {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* =========================================================
+   CARTÃO DA MÚSICA
+========================================================= */
+
+.cartao-musica {
+    width: 100%;
+    max-width: 700px;
+
+    margin: 40px auto;
+    padding: 25px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+
+    text-align: left;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(59, 130, 246, 0.16),
+            rgba(255, 255, 255, 0.04)
+        );
+
+    border: 1px solid rgba(147, 197, 253, 0.18);
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+
+.cartao-musica:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 25px 60px rgba(59, 130, 246, 0.18);
+}
+
+
+/* =========================================================
+   CAPA DA MÚSICA
+========================================================= */
+
+.capa-musica {
+    flex-shrink: 0;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.4);
+
+    transition:
+        transform 0.5s ease,
+        box-shadow 0.5s ease;
+}
+
+
+.capa-musica img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    max-width: none;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   CAPA ENQUANTO A MÚSICA TOCA
+========================================================= */
+
+.cartao-musica.tocando .capa-musica {
+
+    animation:
+        pulsarCapa 2.5s ease-in-out infinite;
+
+    box-shadow:
+        0 0 35px rgba(59, 130, 246, 0.35);
+}
+
+
+@keyframes pulsarCapa {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.035);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   INFORMAÇÕES DA MÚSICA
+========================================================= */
+
+.info-musica {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.etiqueta-musica {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #93c5fd;
+
+    font-size: 0.8rem;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+.info-musica h3 {
+
+    margin-bottom: 0;
+
+    color: #ffffff;
+
+    font-size: 1.8rem;
+}
+
+
+.artista-musica {
+
+    margin-top: 0;
+
+    color: #93c5fd;
+
+    font-size: 0.95rem;
+}
+
+
+.texto-musica {
+
+    margin-top: 12px;
+
+    color: #cbd5e1;
+
+    font-size: 0.95rem;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   PLAYER
+========================================================= */
+
+.player-musica {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+
+.botao-musica {
+
+    width: 48px;
+    height: 48px;
+
+    min-width: 48px;
+
+    flex-shrink: 0;
+
+    padding: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #3b82f6;
+
+    color: #ffffff;
+
+    font-size: 1.1rem;
+
+    box-shadow:
+        0 8px 25px rgba(59, 130, 246, 0.3);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+
+.botao-musica:hover {
+
+    transform: scale(1.08);
+
+    background: #60a5fa;
+}
+
+
+.botao-musica:active {
+
+    transform: scale(0.94);
+}
+
+
+/* =========================================================
+   BARRA DE PROGRESSO
+========================================================= */
+
+.progresso-musica {
+
+    position: relative;
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 5px;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    cursor: pointer;
+}
+
+
+.barra-progresso {
+
+    width: 0;
+
+    height: 100%;
+
+    border-radius: 10px;
+
+    background: #60a5fa;
+
+    transition:
+        width 0.1s linear;
+}
+
+
+/* =========================================================
+   TEMPO
+========================================================= */
+
+.tempo-musica {
+
+    min-width: 38px;
+
+    color: #93c5fd;
+
+    font-size: 0.75rem;
+
+    text-align: right;
+}
+
+
+.instrucao-musica {
+
+    margin-top: 12px;
+
+    color:
+        rgba(255, 255, 255, 0.55);
+
+    font-size: 0.8rem;
+
+    font-style: italic;
+}
+
+
+.frase-final-sobre {
+
+    margin-top: 35px;
+}
+
+
+.frase-destaque-sobre {
+
+    color: #ffffff !important;
+
+    font-size: 1.15rem !important;
+}
+
+/* =========================================================
+   SOBRE TI — TELEMÓVEL
+========================================================= */
+
+.cartao-musica {
+    flex-direction: column;
+
+    padding: 22px;
+
+    text-align: center;
+
+    gap: 20px;
+}
+
+.capa-musica {
+    width: 190px;
+    height: 190px;
+}
+
+.info-musica {
+    width: 100%;
+}
+
+.info-musica h3 {
+    font-size: 1.6rem;
+}
+
+.texto-musica {
+    font-size: 0.95rem;
+}
+
+.player-musica {
+    width: 100%;
+}
+
+.instrucao-musica {
+    text-align: center;
+}
+
+.frase-final-sobre,
+.frase-destaque-sobre {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* =========================================================
+   CARTA PARA JACILETH
+========================================================= */
+
+.secao-carta {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.cabecalho-carta {
+    max-width: 700px;
+    margin: 0 auto 55px;
+}
+
+.simbolo-carta {
+    display: block;
+    font-size: 45px;
+    margin-bottom: 18px;
+    animation: pulsarCarta 2.5s ease-in-out infinite;
+}
+
+.cabecalho-carta h2 {
+    margin: 0 0 15px;
+    color: var(--branco);
+    font-size: clamp(28px, 5vw, 42px);
+}
+
+.cabecalho-carta p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   ENVELOPE
+========================================================= */
+
+.envelope-carta {
+    position: relative;
+    width: min(90vw, 560px);
+    height: 350px;
+    margin: 0 auto;
+
+    perspective: 1200px;
+
+    filter: drop-shadow(
+        0 25px 45px rgba(0, 0, 0, 0.45)
+    );
+}
+
+
+/* Corpo do envelope */
+
+.envelope-corpo {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #102b4d,
+            #07111f
+        );
+
+    border: 1px solid rgba(147, 197, 253, 0.2);
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+/* Tampa triangular */
+
+.envelope-tampa {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            145deg,
+            #1d4f7d,
+            #0b2038
+        );
+
+    clip-path: polygon(
+        0 0,
+        50% 58%,
+        100% 0
+    );
+
+    transform-origin: top center;
+
+    filter:
+        drop-shadow(
+            0 5px 8px rgba(0, 0, 0, 0.2)
+        );
+}
+
+
+/* Linhas decorativas do envelope */
+
+.envelope-corpo::before,
+.envelope-corpo::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: 0;
+
+    width: 70%;
+    height: 70%;
+
+    border-top: 1px solid
+        rgba(147, 197, 253, 0.12);
+}
+
+.envelope-corpo::before {
+    left: -25%;
+    transform: rotate(32deg);
+}
+
+.envelope-corpo::after {
+    right: -25%;
+    transform: rotate(-32deg);
+}
+
+
+/* =========================================================
+   SELO
+========================================================= */
+
+.selo-carta {
+    position: relative;
+    z-index: 3;
+
+    width: 72px;
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 25px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #60a5fa,
+            #2563eb
+        );
+
+    border: 3px solid
+        rgba(255, 255, 255, 0.75);
+
+    box-shadow:
+        0 8px 30px rgba(37, 99, 235, 0.4);
+
+    font-size: 30px;
+}
+
+
+/* =========================================================
+   BOTÃO ABRIR
+========================================================= */
+
+.botao-abrir-carta {
+    position: relative;
+    z-index: 3;
+
+    padding: 14px 30px;
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.25);
+
+    border-radius: 50px;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    color: var(--branco);
+
+    font-family: inherit;
+    font-size: 16px;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.botao-abrir-carta:hover {
+    transform: translateY(-3px);
+
+    background:
+        rgba(255, 255, 255, 0.15);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.botao-abrir-carta:active {
+    transform: scale(0.96);
+}
+
+
+/* =========================================================
+   CARTA ABERTA — FUNDO
+========================================================= */
+
+.carta-aberta {
+    position: fixed;
+    inset: 0;
+
+    z-index: 10000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    background:
+        rgba(3, 8, 15, 0.94);
+
+    backdrop-filter: blur(10px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.45s ease,
+        visibility 0.45s ease;
+}
+
+.carta-aberta.aberta {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* =========================================================
+   PAPEL DA CARTA
+========================================================= */
+
+.papel-carta {
+    position: relative;
+
+    width: min(900px, 100%);
+    max-height: 88vh;
+
+    overflow-y: auto;
+
+    padding: 65px clamp(25px, 6vw, 75px);
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #edf4fb
+        );
+
+    color: #172033;
+
+    border-radius: 6px;
+
+    box-shadow:
+        0 35px 90px
+        rgba(0, 0, 0, 0.55);
+
+    transform:
+        translateY(40px)
+        scale(0.92);
+
+    transition:
+        transform 0.6s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+}
+
+.carta-aberta.aberta .papel-carta {
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================================================
+   TEXTURA DO PAPEL
+========================================================= */
+
+.papel-carta::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.015) 0,
+            rgba(0, 0, 0, 0.015) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}
+
+
+/* =========================================================
+   BOTÃO FECHAR
+========================================================= */
+
+.fechar-carta {
+    position: absolute;
+
+    top: 18px;
+    right: 20px;
+
+    width: 44px;
+    height: 44px;
+
+    border: none;
+    border-radius: 50%;
+
+    background:
+        rgba(7, 17, 31, 0.08);
+
+    color: #172033;
+
+    font-size: 28px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+.fechar-carta:hover {
+    transform: rotate(90deg);
+
+    background:
+        rgba(7, 17, 31, 0.15);
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.conteudo-carta {
+    position: relative;
+    z-index: 1;
+
+    max-width: 720px;
+
+    margin: 0 auto;
+
+    text-align: left;
+}
+
+.decoracao-carta {
+    text-align: center;
+
+    font-size: 35px;
+
+    margin-bottom: 15px;
+}
+
+.conteudo-carta h3 {
+    margin: 0 0 35px;
+
+    text-align: center;
+
+    color: #1e5ca8;
+
+    font-size: clamp(30px, 5vw, 44px);
+}
+
+.conteudo-carta p {
+    margin: 0 0 20px;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 17px;
+
+    line-height: 1.9;
+
+    color: #293548;
+}
+
+
+/* =========================================================
+   FRASES IMPORTANTES
+========================================================= */
+
+.conteudo-carta .frase-destaque {
+    margin: 30px 0;
+
+    padding: 18px 20px;
+
+    border-left:
+        4px solid #3b82f6;
+
+    background:
+        rgba(59, 130, 246, 0.07);
+
+    border-radius: 0 10px 10px 0;
+
+    color: #174a82;
+
+    font-size: 19px;
+}
+
+.conteudo-carta .frase-futuro {
+    text-align: center;
+
+    margin: 35px 0 20px;
+
+    color: #1e5ca8;
+
+    font-size: 25px;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   DECLARAÇÃO FINAL
+========================================================= */
+
+.conteudo-carta .declaracao-final {
+    margin-top: 40px;
+
+    text-align: center;
+
+    color: #174a82;
+
+    font-size: 27px;
+}
+
+
+/* =========================================================
+   ASSINATURA
+========================================================= */
+
+.assinatura-carta {
+    margin-top: 55px;
+
+    padding-top: 30px;
+
+    border-top:
+        1px solid
+        rgba(30, 92, 168, 0.18);
+
+    text-align: center;
+}
+
+.assinatura-carta p {
+    margin-bottom: 12px;
+
+    color: #174a82;
+
+    font-size: 21px;
+}
+
+.assinatura-carta span {
+    color: #65748a;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 15px;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DO CORAÇÃO
+========================================================= */
+
+@keyframes pulsarCarta {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .secao-carta {
+        padding:
+            75px 15px;
+    }
+
+    .cabecalho-carta {
+        margin-bottom: 40px;
+    }
+
+    .cabecalho-carta p {
+        font-size: 15px;
+    }
+
+    .envelope-carta {
+        width: 94vw;
+        height: 270px;
+    }
+
+    .selo-carta {
+        width: 62px;
+        height: 62px;
+
+        font-size: 25px;
+    }
+
+    .botao-abrir-carta {
+        padding: 12px 25px;
+        font-size: 15px;
+    }
+
+    .carta-aberta {
+        padding: 12px;
+    }
+
+    .papel-carta {
+        max-height: 92vh;
+
+        padding:
+            55px 22px 40px;
+    }
+
+    .fechar-carta {
+        top: 10px;
+        right: 10px;
+
+        width: 40px;
+        height: 40px;
+    }
+
+    .conteudo-carta h3 {
+        margin-bottom: 28px;
+    }
+
+    .conteudo-carta p {
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    .conteudo-carta .frase-destaque {
+        font-size: 17px;
+    }
+
+    .conteudo-carta .frase-futuro {
+        font-size: 22px;
+    }
+
+    .conteudo-carta .declaracao-final {
+        font-size: 23px;
+    }
+
+    .assinatura-carta {
+        margin-top: 40px;
+    }
+
+}
+
+/* =========================================================
+   CONTADOR DE ANIVERSÁRIO
+========================================================= */
+
+.contador-aniversario {
+    position: relative;
+
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 80px 20px;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(59, 130, 246, 0.12),
+            transparent 55%
+        );
+
+    text-align: center;
+}
+
+/* =========================================================
+   CONTADOR — TELA PRINCIPAL
+========================================================= */
+
+.contador-aniversario {
+    position: fixed;
+    inset: 0;
+
+    z-index: 20000;
+
+    /* Fundo totalmente opaco */
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(59, 130, 246, 0.18),
+            transparent 55%
+        ),
+        #07111f;
+
+    opacity: 1;
+    visibility: visible;
+
+    transition:
+        opacity 1.5s ease,
+        visibility 1.5s ease;
+}
+
+
+/* =========================================================
+   CONTADOR — FADE OUT
+========================================================= */
+
+.contador-aniversario.liberado {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+/* =========================================================
+   CONTADOR — FADE OUT
+========================================================= */
+
+.contador-aniversario.liberado {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.conteudo-contador {
+    width: 100%;
+    max-width: 900px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   ÍCONE
+========================================================= */
+
+.icone-contador {
+    font-size: 52px;
+
+    margin-bottom: 25px;
+
+    animation:
+        flutuarRelogio
+        3s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.conteudo-contador h1 {
+    margin: 0 0 15px;
+
+    color: var(--branco);
+
+    font-size:
+        clamp(
+            36px,
+            7vw,
+            62px
+        );
+
+    font-weight: 700;
+
+    letter-spacing: -1px;
+}
+
+
+/* =========================================================
+   MENSAGEM
+========================================================= */
+
+.mensagem-contador {
+    margin: 0 auto 50px;
+
+    max-width: 600px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.72
+        );
+
+    font-size:
+        clamp(
+            16px,
+            3vw,
+            20px
+        );
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   RELÓGIO
+========================================================= */
+
+.relogio-aniversario {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   CADA UNIDADE
+========================================================= */
+
+.unidade-tempo {
+    min-width: 125px;
+
+    padding: 24px 18px;
+
+    border-radius: 22px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+
+    border:
+        1px solid
+        rgba(
+            147,
+            197,
+            253,
+            0.18
+        );
+
+    box-shadow:
+        0 15px 40px
+        rgba(
+            0,
+            0,
+            0,
+            0.25
+        );
+
+    backdrop-filter: blur(12px);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease;
+}
+
+
+/* =========================================================
+   EFEITO AO PASSAR O RATO
+========================================================= */
+
+.unidade-tempo:hover {
+    transform:
+        translateY(-5px);
+
+    background:
+        rgba(
+            59,
+            130,
+            246,
+            0.10
+        );
+
+    border-color:
+        rgba(
+            96,
+            165,
+            250,
+            0.35
+        );
+}
+
+
+/* =========================================================
+   NÚMERO
+========================================================= */
+
+.numero-tempo {
+    display: block;
+
+    color: var(--branco);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(
+            42px,
+            7vw,
+            68px
+        );
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 5px 25px
+        rgba(
+            59,
+            130,
+            246,
+            0.25
+        );
+}
+
+
+/* =========================================================
+   NOME DA UNIDADE
+========================================================= */
+
+.nome-tempo {
+    display: block;
+
+    margin-top: 12px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   SEPARADORES :
+========================================================= */
+
+.separador-tempo {
+    color:
+        rgba(
+            147,
+            197,
+            253,
+            0.65
+        );
+
+    font-size: 35px;
+
+    font-weight: 700;
+
+    margin-top: -28px;
+
+    animation:
+        piscarSeparador
+        1.5s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   TEXTO FINAL
+========================================================= */
+
+.texto-final-contador {
+    max-width: 650px;
+
+    margin: 50px auto 0;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 16px;
+
+    font-style: italic;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes flutuarRelogio {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-8px);
+    }
+
+}
+
+
+@keyframes piscarSeparador {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.25;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE — TELEMÓVEL
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .contador-aniversario {
+        min-height: 100svh;
+
+        padding:
+            70px 15px;
+    }
+
+
+    .icone-contador {
+        font-size: 42px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .mensagem-contador {
+        margin-bottom: 35px;
+
+        font-size: 15px;
+    }
+
+
+    .relogio-aniversario {
+        gap: 7px;
+    }
+
+
+    .unidade-tempo {
+        min-width: 0;
+
+        flex: 1;
+
+        padding:
+            18px 8px;
+
+        border-radius: 16px;
+    }
+
+
+    .numero-tempo {
+        font-size:
+            clamp(
+                28px,
+                9vw,
+                45px
+            );
+
+        letter-spacing: 1px;
+    }
+
+
+    .nome-tempo {
+        margin-top: 9px;
+
+        font-size: 9px;
+
+        letter-spacing: 1px;
+    }
+
+
+    .separador-tempo {
+        font-size: 22px;
+
+        margin-top: -18px;
+    }
+
+
+    .texto-final-contador {
+        margin-top: 35px;
+
+        font-size: 14px;
+    }
+
+}
+
+
+/* =========================================================
+   TELEMÓVEIS MUITO PEQUENOS
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .relogio-aniversario {
+        gap: 4px;
+    }
+
+
+    .unidade-tempo {
+        padding:
+            15px 5px;
+
+        border-radius: 13px;
+    }
+
+
+    .numero-tempo {
+        font-size: 26px;
+    }
+
+
+    .nome-tempo {
+        font-size: 8px;
+
+        letter-spacing: 0.5px;
+    }
+
+
+    .separador-tempo {
+        font-size: 18px;
+    }
+
+}/* =========================================================
+   ANIVERSÁRIO
+========================================================= */
+
+#aniversario {
+
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(59, 130, 246, 0.30),
+            transparent 65%
+        ),
+        #06101d;
+
+    overflow: hidden;
+}
+
+#aniversario h2 {
+
+    font-size:
+        clamp(2.5rem, 8vw, 5rem);
+}
+
+#aniversario p {
+    font-size: 1.2rem;
+}
+
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
+
+footer {
+
+    padding: 50px 20px;
+
+    text-align: center;
+
+    background: #02060c;
+
+    color: rgba(255, 255, 255, 0.6);
+}
+
+footer p {
+    margin-bottom: 5px;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE — TELEMÓVEIS
+========================================================= */
+
+@media (max-width: 600px) {
+
+    section,
+    header {
+
+        min-height: 100svh;
+
+        padding:
+            60px 20px;
+    }
+
+
+    /* Títulos */
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+
+    /* Abertura */
+
+    .abertura h1 {
+
+        font-size:
+            clamp(3.5rem, 18vw, 5rem);
+    }
+
+    .pequena-frase {
+
+        font-size: 0.75rem;
+
+        letter-spacing: 2px;
+    }
+
+    .subtitulo {
+        font-size: 1rem;
+    }
+
+    .indicacao {
+        margin-top: 45px;
+    }
+
+
+    /* História */
+
+    #historia {
+
+        min-height: 100svh;
+
+        padding:
+            60px 20px;
+    }
+
+    .cartoes-historia {
+
+        width: 100%;
+
+        max-width: 100%;
+    }
+
+    .cartoes-historia .momento {
+
+        width: 100%;
+
+        padding:
+            25px 20px;
+    }
+
+    .momento h3 {
+        font-size: 1.3rem;
+    }
+
+
+    /* Galeria */
+
+    #galeria img {
+
+        width: 100%;
+
+        max-width: 320px;
+
+        height: 320px;
+    }
+
+
+    /* Contador */
+
+    #contador div {
+        gap: 10px;
+    }
+
+    #contador span {
+
+        min-width: 75px;
+
+        min-height: 60px;
+
+        font-size: 0.95rem;
+    }
+
+
+    /* Botões */
+
+    button {
+
+        width: 90%;
+
+        max-width: 300px;
+    }
+
+    .btn-proximo {
+
+        width: auto;
+
+        max-width: none;
+    }
+
+
+        /* GALERIA NO TELEMÓVEL */
+
+    #galeria {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+     .galeria-fotos {
+        width: 100% !important;
+
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+        gap: 12px !important;
+    }
+
+    .foto-memoria {
+        width: 100%;
+        height: 220px;
+        border-radius: 16px;
+    }
+
+        /* VISUALIZADOR NO TELEMÓVEL */
+
+    .imagem-ampliada-container {
+        width: 90vw;
+        height: 75vh;
+    }
+
+    .fechar-galeria {
+        top: 15px;
+        right: 15px;
+
+        width: 45px;
+        height: 45px;
+
+        font-size: 28px;
+    }
+
+    .navegacao-galeria {
+        width: 45px;
+        height: 45px;
+
+        font-size: 34px;
+    }
+
+    .navegacao-galeria.anterior {
+        left: 10px;
+    }
+
+    .navegacao-galeria.seguinte {
+        right: 10px;
+    }
+
+    /* =========================================================
+   SOBRE TI — TELEMÓVEL
+========================================================= */
+
+.cartao-musica {
+    flex-direction: column;
+
+    padding: 22px;
+
+    text-align: center;
+
+    gap: 20px;
+}
+
+.capa-musica {
+    width: 190px;
+    height: 190px;
+}
+
+.info-musica {
+    width: 100%;
+}
+
+.info-musica h3 {
+    font-size: 1.6rem;
+}
+
+.texto-musica {
+    font-size: 0.95rem;
+}
+
+.player-musica {
+    width: 100%;
+}
+
+.instrucao-musica {
+    text-align: center;
+}
+
+.frase-final-sobre,
+.frase-destaque-sobre {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+    
+}
+
+/* =========================================
+   VÍDEO AMPLIADO + BOTÃO PLAY
+========================================= */
+
+.video-wrapper {
+    position: relative;
+    display: none;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#videoAmpliado {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 18px;
+    background: #000;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* BOTÃO AZUL DE PLAY */
+
+.botao-play-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 82px;
+    height: 82px;
+
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+
+    background: rgba(59, 130, 246, 0.92);
+    color: #ffffff;
+
+    font-size: 32px;
+    line-height: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    z-index: 5;
+
+    box-shadow:
+        0 0 0 0 rgba(59, 130, 246, 0.5),
+        0 10px 35px rgba(0, 0, 0, 0.45);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease,
+        opacity 0.3s ease;
+}
+
+/* Efeito ao passar o rato */
+
+.botao-play-video:hover {
+    transform: translate(-50%, -50%) scale(1.08);
+
+    background: rgba(59, 130, 246, 1);
+
+    box-shadow:
+        0 0 0 10px rgba(59, 130, 246, 0.12),
+        0 15px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* Efeito ao tocar */
+
+.botao-play-video:active {
+    transform: translate(-50%, -50%) scale(0.94);
+}
+
+/* Animação suave do botão */
+
+@keyframes pulsarPlay {
+    0% {
+        box-shadow:
+            0 0 0 0 rgba(59, 130, 246, 0.5),
+            0 10px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    70% {
+        box-shadow:
+            0 0 0 16px rgba(59, 130, 246, 0),
+            0 10px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    100% {
+        box-shadow:
+            0 0 0 0 rgba(59, 130, 246, 0),
+            0 10px 35px rgba(0, 0, 0, 0.45);
+    }
+}
+
+.botao-play-video {
+    animation: pulsarPlay 2s infinite;
+}
+
+/* Quando o vídeo está a reproduzir,
+   o botão desaparece */
+
+.botao-play-video.escondido {
+    opacity: 0;
+    pointer-events: none;
+    animation: none;
+}
+
+/* Telemóvel */
+
+@media (max-width: 600px) {
+
+    .botao-play-video {
+        width: 70px;
+        height: 70px;
+        font-size: 27px;
+    }
+
+}
+
+/* =========================================
+   REVELAR O RESTO DA SURPRESA
+========================================= */
+
+.revelar-surpresa {
+    width: 100%;
+    max-width: 760px;
+    margin: 70px auto 40px;
+    padding: 40px 30px;
+    text-align: center;
+
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(147, 197, 253, 0.18);
+    border-radius: 25px;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.revelar-surpresa h3 {
+    margin-bottom: 20px;
+
+    font-size: 1.6rem;
+    line-height: 1.4;
+
+    color: #ffffff;
+}
+
+.revelar-surpresa p {
+    max-width: 600px;
+    margin: 10px auto;
+
+    font-size: 1.05rem;
+    line-height: 1.7;
+
+    color: #dbeafe;
+}
+
+#btnRevelarSurpresa {
+    margin-top: 25px;
+    padding: 15px 28px;
+
+    border: none;
+    border-radius: 50px;
+
+    background: linear-gradient(
+        135deg,
+        #3b82f6,
+        #60a5fa
+    );
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px rgba(59, 130, 246, 0.25);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+#btnRevelarSurpresa:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 35px rgba(59, 130, 246, 0.4);
+}
+
+#btnRevelarSurpresa:active {
+    transform: scale(0.96);
+}
+
+@media (max-width: 600px) {
+
+    .revelar-surpresa {
+        width: calc(100% - 30px);
+        margin: 50px auto 30px;
+        padding: 30px 20px;
+    }
+
+    .revelar-surpresa h3 {
+        font-size: 1.35rem;
+    }
+
+    .revelar-surpresa p {
+        font-size: 1rem;
+    }
+
+    #btnRevelarSurpresa {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 0.95rem;
+    }
+}
+
+/* =========================================================
+   CORREÇÃO DEFINITIVA — CARTÕES DA HISTÓRIA
+   SEM OVERFLOW HORIZONTAL
+========================================================= */
+
+#historia {
+    overflow-x: hidden !important;
+}
+
+#historia .cartoes-historia {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+#historia .cartoes-historia .momento {
+    position: absolute;
+
+    /* O cartão começa exactamente no lado esquerdo
+       do seu contentor */
+    left: 0 !important;
+
+    width: 100% !important;
+    max-width: none !important;
+
+    box-sizing: border-box;
+
+    /* IMPORTANTE:
+       já não usamos translateX para posicionar o cartão */
+    transform: translateY(20px) !important;
+
+    text-align: center !important;
+}
+
+#historia .cartoes-historia .momento.visivel {
+    transform: translateY(0) !important;
+}
+
+
+/* Conteúdo */
+#historia .cartoes-historia .momento > * {
+    max-width: 100%;
+    box-sizing: border-box;
+    text-align: center !important;
+}
+
+
+/* Parágrafos */
+#historia .cartoes-historia .momento p {
+    width: 100%;
+    max-width: 650px;
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    text-align: center !important;
+
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+
+/* Título */
+#historia .cartoes-historia .momento h3 {
+    width: 100%;
+    max-width: 650px;
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    text-align: center !important;
+}
+
+
+/* Número */
+#historia .cartoes-historia .momento .numero {
+    display: block;
+    width: 100%;
+    text-align: center !important;
+}
+
+
+/* Botões */
+#historia .cartoes-historia .momento button {
+    max-width: 100%;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+
+/* =========================================================
+   TELEMÓVEL
+========================================================= */
+
+@media (max-width: 600px) {
+
+    #historia {
+        overflow-x: hidden !important;
+    }
+
+    #historia .cartoes-historia {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    #historia .cartoes-historia .momento {
+        left: 0 !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+
+        padding: 25px 20px !important;
+
+        box-sizing: border-box;
+
+        text-align: center !important;
+    }
+
+    #historia .cartoes-historia .momento p,
+    #historia .cartoes-historia .momento h3 {
+        width: 100%;
+        max-width: 340px;
+
+        margin-left: auto !important;
+        margin-right: auto !important;
+
+        text-align: center !important;
+
+        overflow-wrap: anywhere;
+    }
+}
