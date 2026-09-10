@@ -1873,23 +1873,13 @@ if (
 
     }
 
+function desbloquearSite() {
+    contadorAniversario.classList.add("liberado");
 
-    function desbloquearSite() {
+    document.body.style.overflow = "";
 
-        contadorAniversario.classList.add(
-            "liberado"
-        );
-
-
-        document.body.style.overflow =
-            "";
-
-
-        console.log(
-            "🎉 Contador terminou! Site desbloqueado."
-        );
-
-    }
+    console.log("🎉 Contador terminou! Site desbloqueado.");
+}
 
 
     function actualizarContador() {

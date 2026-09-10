@@ -1856,22 +1856,14 @@ button:focus-visible {
 
 
 /* =========================================================
-   CONTADOR — FADE OUT
+   CONTADOR — SITE LIBERADO
 ========================================================= */
 
 .contador-aniversario.liberado {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-/* =========================================================
-   CONTADOR — FADE OUT
-========================================================= */
-
-.contador-aniversario.liberado {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    display: none !important;
 }
 
 /* =========================================================
