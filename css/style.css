@@ -174,6 +174,10 @@ button:focus-visible {
     pointer-events: none;
 }
 
+#inicio {
+    overflow: hidden;
+}
+
 
 /* =========================================================
    ABERTURA
@@ -347,6 +351,22 @@ button:focus-visible {
         opacity 1s ease,
         transform 1s ease,
         visibility 1s ease;
+}
+
+#inicio {
+    transition:
+        opacity 1s ease,
+        transform 1s ease,
+        visibility 1s ease;
+}
+
+#historia {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+#historia.historia-visivel {
+    opacity: 1;
 }
 
 /* =========================================================
@@ -1801,922 +1821,7 @@ button:focus-visible {
 
 }
 
-/* =========================================================
-   CONTADOR DE ANIVERSÁRIO
-========================================================= */
 
-.contador-aniversario {
-    position: relative;
-
-    width: 100%;
-    min-height: 100vh;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 80px 20px;
-
-    background:
-        radial-gradient(
-            circle at 50% 40%,
-            rgba(59, 130, 246, 0.12),
-            transparent 55%
-        );
-
-    text-align: center;
-}
-
-/* =========================================================
-   CONTADOR — TELA PRINCIPAL
-========================================================= */
-
-.contador-aniversario {
-    position: fixed;
-    inset: 0;
-
-    z-index: 20000;
-
-    /* Fundo totalmente opaco */
-    background:
-        radial-gradient(
-            circle at 50% 40%,
-            rgba(59, 130, 246, 0.18),
-            transparent 55%
-        ),
-        #07111f;
-
-    opacity: 1;
-    visibility: visible;
-
-    transition:
-        opacity 1.5s ease,
-        visibility 1.5s ease;
-}
-
-
-/* =========================================================
-   CONTADOR — SITE LIBERADO
-========================================================= */
-
-.contador-aniversario.liberado {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    display: none !important;
-}
-
-/* =========================================================
-   CONTEÚDO
-========================================================= */
-
-.conteudo-contador {
-    width: 100%;
-    max-width: 900px;
-
-    margin: 0 auto;
-}
-
-
-/* =========================================================
-   ÍCONE
-========================================================= */
-
-.icone-contador {
-    font-size: 52px;
-
-    margin-bottom: 25px;
-
-    animation:
-        flutuarRelogio
-        3s ease-in-out infinite;
-}
-
-
-/* =========================================================
-   TÍTULO
-========================================================= */
-
-.conteudo-contador h1 {
-    margin: 0 0 15px;
-
-    color: var(--branco);
-
-    font-size:
-        clamp(
-            36px,
-            7vw,
-            62px
-        );
-
-    font-weight: 700;
-
-    letter-spacing: -1px;
-}
-
-
-/* =========================================================
-   MENSAGEM
-========================================================= */
-
-.mensagem-contador {
-    margin: 0 auto 50px;
-
-    max-width: 600px;
-
-    color:
-        rgba(
-            255,
-            255,
-            255,
-            0.72
-        );
-
-    font-size:
-        clamp(
-            16px,
-            3vw,
-            20px
-        );
-
-    line-height: 1.7;
-}
-
-
-/* =========================================================
-   RELÓGIO
-========================================================= */
-
-.relogio-aniversario {
-    width: 100%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 18px;
-
-    margin: 0 auto;
-}
-
-
-/* =========================================================
-   CADA UNIDADE
-========================================================= */
-
-.unidade-tempo {
-    min-width: 125px;
-
-    padding: 24px 18px;
-
-    border-radius: 22px;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.06
-        );
-
-    border:
-        1px solid
-        rgba(
-            147,
-            197,
-            253,
-            0.18
-        );
-
-    box-shadow:
-        0 15px 40px
-        rgba(
-            0,
-            0,
-            0,
-            0.25
-        );
-
-    backdrop-filter: blur(12px);
-
-    transition:
-        transform 0.3s ease,
-        background 0.3s ease,
-        border-color 0.3s ease;
-}
-
-
-/* =========================================================
-   EFEITO AO PASSAR O RATO
-========================================================= */
-
-.unidade-tempo:hover {
-    transform:
-        translateY(-5px);
-
-    background:
-        rgba(
-            59,
-            130,
-            246,
-            0.10
-        );
-
-    border-color:
-        rgba(
-            96,
-            165,
-            250,
-            0.35
-        );
-}
-
-
-/* =========================================================
-   NÚMERO
-========================================================= */
-
-.numero-tempo {
-    display: block;
-
-    color: var(--branco);
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:
-        clamp(
-            42px,
-            7vw,
-            68px
-        );
-
-    font-weight: 700;
-
-    line-height: 1;
-
-    letter-spacing: 2px;
-
-    text-shadow:
-        0 5px 25px
-        rgba(
-            59,
-            130,
-            246,
-            0.25
-        );
-}
-
-
-/* =========================================================
-   NOME DA UNIDADE
-========================================================= */
-
-.nome-tempo {
-    display: block;
-
-    margin-top: 12px;
-
-    color:
-        rgba(
-            255,
-            255,
-            255,
-            0.55
-        );
-
-    font-size: 12px;
-
-    text-transform: uppercase;
-
-    letter-spacing: 2px;
-}
-
-
-/* =========================================================
-   SEPARADORES :
-========================================================= */
-
-.separador-tempo {
-    color:
-        rgba(
-            147,
-            197,
-            253,
-            0.65
-        );
-
-    font-size: 35px;
-
-    font-weight: 700;
-
-    margin-top: -28px;
-
-    animation:
-        piscarSeparador
-        1.5s ease-in-out infinite;
-}
-
-
-/* =========================================================
-   TEXTO FINAL
-========================================================= */
-
-.texto-final-contador {
-    max-width: 650px;
-
-    margin: 50px auto 0;
-
-    color:
-        rgba(
-            255,
-            255,
-            255,
-            0.55
-        );
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size: 16px;
-
-    font-style: italic;
-
-    line-height: 1.7;
-}
-
-
-/* =========================================================
-   ANIMAÇÕES
-========================================================= */
-
-@keyframes flutuarRelogio {
-
-    0%,
-    100% {
-        transform:
-            translateY(0);
-    }
-
-    50% {
-        transform:
-            translateY(-8px);
-    }
-
-}
-
-
-@keyframes piscarSeparador {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.25;
-    }
-
-}
-
-
-/* =========================================================
-   RESPONSIVIDADE — TELEMÓVEL
-========================================================= */
-
-@media (max-width: 700px) {
-
-    .contador-aniversario {
-        min-height: 100svh;
-
-        padding:
-            70px 15px;
-    }
-
-
-    .icone-contador {
-        font-size: 42px;
-
-        margin-bottom: 20px;
-    }
-
-
-    .mensagem-contador {
-        margin-bottom: 35px;
-
-        font-size: 15px;
-    }
-
-
-    .relogio-aniversario {
-        gap: 7px;
-    }
-
-
-    .unidade-tempo {
-        min-width: 0;
-
-        flex: 1;
-
-        padding:
-            18px 8px;
-
-        border-radius: 16px;
-    }
-
-
-    .numero-tempo {
-        font-size:
-            clamp(
-                28px,
-                9vw,
-                45px
-            );
-
-        letter-spacing: 1px;
-    }
-
-
-    .nome-tempo {
-        margin-top: 9px;
-
-        font-size: 9px;
-
-        letter-spacing: 1px;
-    }
-
-
-    .separador-tempo {
-        font-size: 22px;
-
-        margin-top: -18px;
-    }
-
-
-    .texto-final-contador {
-        margin-top: 35px;
-
-        font-size: 14px;
-    }
-
-}
-
-
-/* =========================================================
-   TELEMÓVEIS MUITO PEQUENOS
-========================================================= */
-
-@media (max-width: 380px) {
-
-    .relogio-aniversario {
-        gap: 4px;
-    }
-
-
-    .unidade-tempo {
-        padding:
-            15px 5px;
-
-        border-radius: 13px;
-    }
-
-
-    .numero-tempo {
-        font-size: 26px;
-    }
-
-
-    .nome-tempo {
-        font-size: 8px;
-
-        letter-spacing: 0.5px;
-    }
-
-
-    .separador-tempo {
-        font-size: 18px;
-    }
-
-}/* =========================================================
-   ANIVERSÁRIO
-========================================================= */
-
-#aniversario {
-
-    position: relative;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(59, 130, 246, 0.30),
-            transparent 65%
-        ),
-        #06101d;
-
-    overflow: hidden;
-}
-
-#aniversario h2 {
-
-    font-size:
-        clamp(2.5rem, 8vw, 5rem);
-}
-
-#aniversario p {
-    font-size: 1.2rem;
-}
-
-
-/* =========================================================
-   RODAPÉ
-========================================================= */
-
-footer {
-
-    padding: 50px 20px;
-
-    text-align: center;
-
-    background: #02060c;
-
-    color: rgba(255, 255, 255, 0.6);
-}
-
-footer p {
-    margin-bottom: 5px;
-}
-
-
-/* =========================================================
-   RESPONSIVIDADE — TELEMÓVEIS
-========================================================= */
-
-@media (max-width: 600px) {
-
-    section,
-    header {
-
-        min-height: 100svh;
-
-        padding:
-            60px 20px;
-    }
-
-
-    /* Títulos */
-
-    h1 {
-        font-size: 2.2rem;
-    }
-
-    h2 {
-        font-size: 1.8rem;
-    }
-
-    h3 {
-        font-size: 1.3rem;
-    }
-
-    p {
-        font-size: 1rem;
-    }
-
-
-    /* Abertura */
-
-    .abertura h1 {
-
-        font-size:
-            clamp(3.5rem, 18vw, 5rem);
-    }
-
-    .pequena-frase {
-
-        font-size: 0.75rem;
-
-        letter-spacing: 2px;
-    }
-
-    .subtitulo {
-        font-size: 1rem;
-    }
-
-    .indicacao {
-        margin-top: 45px;
-    }
-
-
-    /* História */
-
-    #historia {
-
-        min-height: 100svh;
-
-        padding:
-            60px 20px;
-    }
-
-    .cartoes-historia {
-
-        width: 100%;
-
-        max-width: 100%;
-    }
-
-    .cartoes-historia .momento {
-
-        width: 100%;
-
-        padding:
-            25px 20px;
-    }
-
-    .momento h3 {
-        font-size: 1.3rem;
-    }
-
-
-    /* Galeria */
-
-    #galeria img {
-
-        width: 100%;
-
-        max-width: 320px;
-
-        height: 320px;
-    }
-
-
-    /* Contador */
-
-    #contador div {
-        gap: 10px;
-    }
-
-    #contador span {
-
-        min-width: 75px;
-
-        min-height: 60px;
-
-        font-size: 0.95rem;
-    }
-
-
-    /* Botões */
-
-    button {
-
-        width: 90%;
-
-        max-width: 300px;
-    }
-
-    .btn-proximo {
-
-        width: auto;
-
-        max-width: none;
-    }
-
-
-        /* GALERIA NO TELEMÓVEL */
-
-    #galeria {
-        padding-top: 60px;
-        padding-bottom: 60px;
-    }
-
-     .galeria-fotos {
-        width: 100% !important;
-
-        display: grid !important;
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-
-        gap: 12px !important;
-    }
-
-    .foto-memoria {
-        width: 100%;
-        height: 220px;
-        border-radius: 16px;
-    }
-
-        /* VISUALIZADOR NO TELEMÓVEL */
-
-    .imagem-ampliada-container {
-        width: 90vw;
-        height: 75vh;
-    }
-
-    .fechar-galeria {
-        top: 15px;
-        right: 15px;
-
-        width: 45px;
-        height: 45px;
-
-        font-size: 28px;
-    }
-
-    .navegacao-galeria {
-        width: 45px;
-        height: 45px;
-
-        font-size: 34px;
-    }
-
-    .navegacao-galeria.anterior {
-        left: 10px;
-    }
-
-    .navegacao-galeria.seguinte {
-        right: 10px;
-    }
-
-    /* =========================================================
-   SOBRE TI — TELEMÓVEL
-========================================================= */
-
-.cartao-musica {
-    flex-direction: column;
-
-    padding: 22px;
-
-    text-align: center;
-
-    gap: 20px;
-}
-
-.capa-musica {
-    width: 190px;
-    height: 190px;
-}
-
-.info-musica {
-    width: 100%;
-}
-
-.info-musica h3 {
-    font-size: 1.6rem;
-}
-
-.texto-musica {
-    font-size: 0.95rem;
-}
-
-.player-musica {
-    width: 100%;
-}
-
-.instrucao-musica {
-    text-align: center;
-}
-
-.frase-final-sobre,
-.frase-destaque-sobre {
-    padding-left: 5px;
-    padding-right: 5px;
-}
-    
-}
-
-/* =========================================
-   VÍDEO AMPLIADO + BOTÃO PLAY
-========================================= */
-
-.video-wrapper {
-    position: relative;
-    display: none;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-}
-
-#videoAmpliado {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    border-radius: 18px;
-    background: #000;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-}
-
-/* BOTÃO AZUL DE PLAY */
-
-.botao-play-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-
-    transform: translate(-50%, -50%);
-
-    width: 82px;
-    height: 82px;
-
-    border: 2px solid rgba(255, 255, 255, 0.35);
-    border-radius: 50%;
-
-    background: rgba(59, 130, 246, 0.92);
-    color: #ffffff;
-
-    font-size: 32px;
-    line-height: 1;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-
-    z-index: 5;
-
-    box-shadow:
-        0 0 0 0 rgba(59, 130, 246, 0.5),
-        0 10px 35px rgba(0, 0, 0, 0.45);
-
-    transition:
-        transform 0.3s ease,
-        background 0.3s ease,
-        box-shadow 0.3s ease,
-        opacity 0.3s ease;
-}
-
-/* Efeito ao passar o rato */
-
-.botao-play-video:hover {
-    transform: translate(-50%, -50%) scale(1.08);
-
-    background: rgba(59, 130, 246, 1);
-
-    box-shadow:
-        0 0 0 10px rgba(59, 130, 246, 0.12),
-        0 15px 40px rgba(0, 0, 0, 0.55);
-}
-
-/* Efeito ao tocar */
-
-.botao-play-video:active {
-    transform: translate(-50%, -50%) scale(0.94);
-}
-
-/* Animação suave do botão */
-
-@keyframes pulsarPlay {
-    0% {
-        box-shadow:
-            0 0 0 0 rgba(59, 130, 246, 0.5),
-            0 10px 35px rgba(0, 0, 0, 0.45);
-    }
-
-    70% {
-        box-shadow:
-            0 0 0 16px rgba(59, 130, 246, 0),
-            0 10px 35px rgba(0, 0, 0, 0.45);
-    }
-
-    100% {
-        box-shadow:
-            0 0 0 0 rgba(59, 130, 246, 0),
-            0 10px 35px rgba(0, 0, 0, 0.45);
-    }
-}
-
-.botao-play-video {
-    animation: pulsarPlay 2s infinite;
-}
-
-/* Quando o vídeo está a reproduzir,
-   o botão desaparece */
-
-.botao-play-video.escondido {
-    opacity: 0;
-    pointer-events: none;
-    animation: none;
-}
-
-/* Telemóvel */
-
-@media (max-width: 600px) {
-
-    .botao-play-video {
-        width: 70px;
-        height: 70px;
-        font-size: 27px;
-    }
-
-}
 
 /* =========================================
    REVELAR O RESTO DA SURPRESA
@@ -2955,3 +2060,165 @@ footer p {
         overflow-wrap: anywhere;
     }
 }
+
+footer {
+    min-height: auto;
+    padding: 35px 20px 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    position: relative;
+    overflow: hidden;
+
+    background: #050d1a;
+
+    border-top: 1px solid rgba(96, 165, 250, 0.12);
+}
+
+footer p {
+    margin: 0;
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.65;
+}
+
+.btn-resetar-surpresa {
+    margin-top: 18px;
+    padding: 9px 18px;
+
+    border: 1px solid rgba(96, 165, 250, 0.25);
+    border-radius: 30px;
+
+    background: rgba(59, 130, 246, 0.08);
+    color: rgba(255, 255, 255, 0.65);
+
+    font-family: inherit;
+    font-size: 0.8rem;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.btn-resetar-surpresa:hover {
+    background: rgba(59, 130, 246, 0.2);
+    color: #ffffff;
+    border-color: rgba(96, 165, 250, 0.55);
+    transform: translateY(-2px);
+}
+
+.btn-resetar-surpresa:active {
+    transform: scale(0.96);
+}
+/* =========================================================
+   EFEITO FINAL — FELIZ ANIVERSÁRIO
+========================================================= */
+
+.secao-aniversario {
+    position: relative;
+    overflow: hidden;
+
+    min-height: 100vh;
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(59, 130, 246, 0.35),
+            transparent 45%
+        ),
+        #07111f;
+}
+
+.secao-aniversario::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: rgba(37, 99, 235, 0.25);
+
+    filter: blur(100px);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+.secao-aniversario > * {
+    position: relative;
+    z-index: 2;
+}
+
+.secao-aniversario h2 {
+    padding: 35px 30px;
+    margin-bottom: 30px;
+
+    border: 1px solid rgba(96, 165, 250, 0.35);
+    border-radius: 25px;
+
+    background: rgba(30, 64, 175, 0.15);
+
+    box-shadow:
+        0 0 25px rgba(59, 130, 246, 0.25),
+        inset 0 0 30px rgba(59, 130, 246, 0.08);
+}
+
+.secao-aniversario p {
+    max-width: 700px;
+    margin: 12px auto;
+}
+
+
+/* =========================================================
+   BOTÃO — RECOMEÇAR A SURPRESA
+========================================================= */
+
+.btn-resetar-surpresa {
+    margin-top: 25px;
+    padding: 10px 20px;
+
+    border: 1px solid rgba(96, 165, 250, 0.25);
+    border-radius: 30px;
+
+    background: rgba(59, 130, 246, 0.08);
+    color: rgba(255, 255, 255, 0.65);
+
+    font-family: inherit;
+    font-size: 0.85rem;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.btn-resetar-surpresa:hover {
+    background: rgba(59, 130, 246, 0.2);
+    color: #ffffff;
+    border-color: rgba(96, 165, 250, 0.55);
+    transform: translateY(-2px);
+}
+
+.btn-resetar-surpresa:active {
+    transform: scale(0.96);
+}
+
+

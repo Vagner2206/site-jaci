@@ -1,3 +1,4 @@
+
 // =========================================================
 // INICIAR SEMPRE O SITE NO TOPO
 // =========================================================
@@ -8,41 +9,65 @@ if ("scrollRestoration" in history) {
 
 window.scrollTo(0, 0);
 
+
 // =========================================================
-// ABERTURA DO SITE
+// ABRIR A SURPRESA
 // =========================================================
 
-const botaoSurpresa = document.querySelector(".btn-surpresa");
-const inicio = document.querySelector("#inicio");
-const historia = document.querySelector("#historia");
+const botaoSurpresa =
+    document.querySelector(".btn-surpresa");
+
+const inicio =
+    document.querySelector("#inicio");
+
+const historia =
+    document.querySelector("#historia");
+
+document.body.style.overflow = "hidden";
 
 if (botaoSurpresa) {
 
-    botaoSurpresa.addEventListener("click", function () {
+    botaoSurpresa.addEventListener(
+        "click",
+        function () {
 
-        if (inicio) {
-            inicio.classList.add("esconder");
-        }
+            // Começar o desaparecimento da abertura
+            if (inicio) {
 
-        setTimeout(function () {
+                inicio.classList.add(
+                    "esconder"
+                );
 
-            if (historia) {
-                historia.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
             }
 
-        }, 1000);
+            // Esperar o fade terminar
+            setTimeout(
+                function () {
 
-    });
+                    if (inicio) {
+                        inicio.style.display = "none";
+                    }
+
+                    if (historia) {
+                        historia.classList.add(
+                            "historia-visivel"
+                        );
+                    }
+
+                    document.body.style.overflow = "";
+
+                },
+                1000
+            );
+
+        }
+    );
 
 }
 
 
 // =========================================================
 // SISTEMA DOS CARTÕES DA HISTÓRIA
-// CORRIGIDO — SEM EFEITO ESCADA
 // =========================================================
 
 const cartoesHistoria =
@@ -59,31 +84,117 @@ let mudancaHistoriaEmAndamento = false;
 let temporizadorHistoria = null;
 
 
+// =========================================================
+// STORAGE — GUARDAR O PROGRESSO DA SURPRESA
+// =========================================================
+
+const CHAVE_STORAGE =
+    "progressoSurpresaJacileth";
+
+
+function guardarProgresso() {
+
+    const progresso = {
+
+        momentoAtual:
+            momentoAtual,
+
+        surpresaDesbloqueada:
+            localStorage.getItem(
+                "surpresaDesbloqueada"
+            ) === "true"
+
+    };
+
+
+    localStorage.setItem(
+        CHAVE_STORAGE,
+        JSON.stringify(progresso)
+    );
+
+
+    console.log(
+        "💾 Progresso guardado:",
+        progresso
+    );
+
+}
+
+
+function carregarProgresso() {
+
+    const progressoGuardado =
+        localStorage.getItem(
+            CHAVE_STORAGE
+        );
+
+
+    if (!progressoGuardado) {
+
+        console.log(
+            "🆕 Nenhum progresso encontrado."
+        );
+
+        return null;
+
+    }
+
+
+    try {
+
+        const progresso =
+            JSON.parse(
+                progressoGuardado
+            );
+
+
+        console.log(
+            "📂 Progresso recuperado:",
+            progresso
+        );
+
+
+        return progresso;
+
+    } catch (erro) {
+
+        console.log(
+            "⚠️ Erro ao recuperar o progresso."
+        );
+
+        return null;
+
+    }
+
+}
+
+
 // ---------------------------------------------------------
 // AJUSTAR ALTURA DO CONTAINER
 // ---------------------------------------------------------
 
 function ajustarAlturaHistoria() {
 
-    if (!cartoesHistoria || momentos.length === 0) {
+    if (
+        !cartoesHistoria ||
+        momentos.length === 0
+    ) {
         return;
     }
 
+
     const cartaoAtual =
         momentos[momentoAtual];
+
 
     if (!cartaoAtual) {
         return;
     }
 
-    /*
-     * Como os cartões agora são ABSOLUTOS,
-     * o container precisa receber manualmente
-     * a altura do cartão que está visível.
-     */
 
     const altura =
         cartaoAtual.offsetHeight;
+
 
     if (altura > 0) {
 
@@ -99,7 +210,10 @@ function ajustarAlturaHistoria() {
 // MOSTRAR CARTÃO
 // ---------------------------------------------------------
 
-function mostrarMomento(indice, fazerScroll = false) {
+function mostrarMomento(
+    indice,
+    fazerScroll = false
+) {
 
     if (
         indice < 0 ||
@@ -109,20 +223,21 @@ function mostrarMomento(indice, fazerScroll = false) {
         return;
     }
 
-    /*
-     * Impede vários cliques enquanto a transição
-     * anterior ainda está a acontecer.
-     */
 
     if (mudancaHistoriaEmAndamento) {
         return;
     }
 
+
     mudancaHistoriaEmAndamento = true;
 
 
     if (temporizadorHistoria) {
-        clearTimeout(temporizadorHistoria);
+
+        clearTimeout(
+            temporizadorHistoria
+        );
+
     }
 
 
@@ -137,7 +252,10 @@ function mostrarMomento(indice, fazerScroll = false) {
     // RETIRAR CARTÃO ANTERIOR
     // -----------------------------------------------------
 
-    if (cartaoAnterior && cartaoAnterior !== novoCartao) {
+    if (
+        cartaoAnterior &&
+        cartaoAnterior !== novoCartao
+    ) {
 
         cartaoAnterior.classList.remove(
             "visivel"
@@ -146,60 +264,79 @@ function mostrarMomento(indice, fazerScroll = false) {
     }
 
 
-    momentoAtual = indice;
+    momentoAtual =
+        indice;
+
+
+    // =====================================================
+    // GUARDAR O MOMENTO ATUAL
+    // =====================================================
+
+    guardarProgresso();
 
 
     // -----------------------------------------------------
     // PEQUENA PAUSA PARA A TRANSIÇÃO
     // -----------------------------------------------------
 
-    temporizadorHistoria = setTimeout(function () {
+    temporizadorHistoria =
+        setTimeout(function () {
 
-        novoCartao.classList.add(
-            "visivel"
-        );
-
-
-        requestAnimationFrame(function () {
-
-            ajustarAlturaHistoria();
+            novoCartao.classList.add(
+                "visivel"
+            );
 
 
-            /*
-             * Esperamos um pouco para o navegador
-             * calcular correctamente a nova altura.
-             */
+            requestAnimationFrame(
+                function () {
 
-            requestAnimationFrame(function () {
-
-                ajustarAlturaHistoria();
+                    ajustarAlturaHistoria();
 
 
-                if (fazerScroll && historia) {
+                    requestAnimationFrame(
+                        function () {
 
-                    const margemTopo = 80;
+                            ajustarAlturaHistoria();
 
-                    const posicao =
-                        novoCartao.getBoundingClientRect().top +
-                        window.scrollY -
-                        margemTopo;
 
-                    window.scrollTo({
-                        top: posicao,
-                        behavior: "smooth"
-                    });
+                            if (
+                                fazerScroll &&
+                                historia
+                            ) {
+
+                                const margemTopo =
+                                    80;
+
+
+                                const posicao =
+                                    novoCartao.getBoundingClientRect().top +
+                                    window.scrollY -
+                                    margemTopo;
+
+
+                                window.scrollTo({
+
+                                    top:
+                                        posicao,
+
+                                    behavior:
+                                        "smooth"
+
+                                });
+
+                            }
+
+
+                            mudancaHistoriaEmAndamento =
+                                false;
+
+                        }
+                    );
 
                 }
+            );
 
-
-                mudancaHistoriaEmAndamento =
-                    false;
-
-            });
-
-        });
-
-    }, 250);
+        }, 250);
 
 }
 
@@ -210,131 +347,196 @@ function mostrarMomento(indice, fazerScroll = false) {
 
 if (momentos.length > 0) {
 
-    momentos.forEach(function (momento, indice) {
+    momentos.forEach(
+        function (
+            momento,
+            indice
+        ) {
 
-        momento.classList.remove(
-            "visivel"
-        );
-
-        /*
-         * Todos os cartões ficam sobrepostos.
-         * O CSS também define isto, mas fazemos
-         * aqui como segurança.
-         */
-
-        momento.style.position = "absolute";
-        momento.style.top = "0";
-        momento.style.left = "0";
-        momento.style.width = "100%";
-
-        momento.style.zIndex =
-            indice === 0 ? "2" : "1";
-
-    });
+            momento.classList.remove(
+                "visivel"
+            );
 
 
-    momentoAtual = 0;
+            momento.style.position =
+                "absolute";
+
+            momento.style.top =
+                "0";
+
+            momento.style.left =
+                "0";
+
+            momento.style.width =
+                "100%";
+
+
+            momento.style.zIndex =
+                indice === 0
+                    ? "2"
+                    : "1";
+
+        }
+    );
+
+
+    // =====================================================
+    // RECUPERAR O PROGRESSO
+    // =====================================================
+
+    const progresso =
+        carregarProgresso();
+
+
+    let momentoInicial =
+        0;
+
+
+    if (progresso) {
+
+        if (
+            typeof progresso.momentoAtual ===
+                "number" &&
+            progresso.momentoAtual >= 0 &&
+            progresso.momentoAtual <
+                momentos.length
+        ) {
+
+            momentoInicial =
+                progresso.momentoAtual;
+
+        }
+
+    }
+
+
+    momentoAtual =
+        momentoInicial;
 
 
     const primeiroCartao =
-        momentos[0];
+        momentos[momentoInicial];
 
-    primeiroCartao.classList.add(
-        "visivel"
+
+    if (primeiroCartao) {
+
+        primeiroCartao.classList.add(
+            "visivel"
+        );
+
+        primeiroCartao.style.zIndex =
+            "2";
+
+    }
+
+
+    requestAnimationFrame(
+        function () {
+
+            requestAnimationFrame(
+                function () {
+
+                    ajustarAlturaHistoria();
+
+                }
+            );
+
+        }
     );
 
-    primeiroCartao.style.zIndex = "2";
 
-
-    /*
-     * Esperar o navegador terminar de renderizar
-     * antes de medir a altura.
-     */
-
-    requestAnimationFrame(function () {
-
-        requestAnimationFrame(function () {
-
-            ajustarAlturaHistoria();
-
-        });
-
-    });
+    console.log(
+        "🎮 A surpresa começa no Momento:",
+        momentoAtual + 1
+    );
 
 }
-
-
 
 
 // ---------------------------------------------------------
 // BOTÕES PRÓXIMO
 // ---------------------------------------------------------
 
-botoesProximo.forEach(function (botao) {
+botoesProximo.forEach(
+    function (botao) {
 
-    botao.addEventListener(
-        "click",
-        function () {
+        botao.addEventListener(
+            "click",
+            function () {
 
-            if (mudancaHistoriaEmAndamento) {
-                return;
-            }
-
-
-            if (
-                momentoAtual <
-                momentos.length - 1
-            ) {
-
-                /*
-                 * O cartão seguinte passa para cima
-                 * do anterior.
-                 */
-
-                const proximo =
-                    momentos[momentoAtual + 1];
-
-                if (proximo) {
-
-    proximo.style.zIndex = "2";
-
-    // Se o próximo cartão for o Momento 12,
-    // revelar o botão da surpresa.
-    if (momentoAtual + 1 === momentos.length - 1) {
-
-        const revelarSurpresa =
-            document.querySelector("#revelarSurpresa");
-
-        if (revelarSurpresa) {
-            revelarSurpresa.style.display = "block";
-        }
-
-    }
-
-}
-
-
-                const atual =
-                    momentos[momentoAtual];
-
-                if (atual) {
-
-                    atual.style.zIndex = "1";
-
+                if (
+                    mudancaHistoriaEmAndamento
+                ) {
+                    return;
                 }
 
 
-                mostrarMomento(
-                    momentoAtual + 1,
-                    true
-                );
+                if (
+                    momentoAtual <
+                    momentos.length - 1
+                ) {
+
+                    const proximo =
+                        momentos[
+                            momentoAtual + 1
+                        ];
+
+
+                    if (proximo) {
+
+                        proximo.style.zIndex =
+                            "2";
+
+
+                        // Se o próximo cartão
+                        // for o Momento 12
+                        if (
+                            momentoAtual + 1 ===
+                            momentos.length - 1
+                        ) {
+
+                            const revelarSurpresa =
+                                document.querySelector(
+                                    "#revelarSurpresa"
+                                );
+
+
+                            if (revelarSurpresa) {
+
+                                revelarSurpresa.style.display =
+                                    "block";
+
+                            }
+
+                        }
+
+                    }
+
+
+                    const atual =
+                        momentos[momentoAtual];
+
+
+                    if (atual) {
+
+                        atual.style.zIndex =
+                            "1";
+
+                    }
+
+
+                    mostrarMomento(
+                        momentoAtual + 1,
+                        true
+                    );
+
+                }
 
             }
+        );
 
-        }
-    );
-
-});
+    }
+);
 
 
 // ---------------------------------------------------------
@@ -345,16 +547,14 @@ window.addEventListener(
     "resize",
     function () {
 
-        /*
-         * Pequeno atraso para o navegador
-         * recalcular fontes e dimensões.
-         */
+        setTimeout(
+            function () {
 
-        setTimeout(function () {
+                ajustarAlturaHistoria();
 
-            ajustarAlturaHistoria();
-
-        }, 100);
+            },
+            100
+        );
 
     }
 );
@@ -365,10 +565,14 @@ window.addEventListener(
 // =========================================================
 
 const fotosMemoria =
-    document.querySelectorAll(".foto-memoria");
+    document.querySelectorAll(
+        ".foto-memoria"
+    );
 
 const galeria =
-    document.querySelector("#galeria");
+    document.querySelector(
+        "#galeria"
+    );
 
 
 if (
@@ -409,6 +613,7 @@ if (
                                 }
                             );
 
+
                             observadorGaleria.disconnect();
 
                         }
@@ -422,20 +627,22 @@ if (
             }
         );
 
-    observadorGaleria.observe(galeria);
+
+    observadorGaleria.observe(
+        galeria
+    );
 
 } else {
 
-    /*
-     * Fallback para navegadores sem
-     * IntersectionObserver.
-     */
+    fotosMemoria.forEach(
+        function (foto) {
 
-    fotosMemoria.forEach(function (foto) {
+            foto.classList.add(
+                "visivel"
+            );
 
-        foto.classList.add("visivel");
-
-    });
+        }
+    );
 
 }
 
@@ -446,24 +653,14 @@ if (
 // =========================================================
 
 const visualizador =
-    document.querySelector("#visualizador");
+    document.querySelector(
+        "#visualizador"
+    );
 
 const imagemAmpliada =
-    document.querySelector("#imagemAmpliada");
-
-
-/*
- * Aceita tanto:
- *
- * id="videoWrapper"
- *
- * como:
- *
- * class="video-wrapper"
- *
- * Assim evitamos o conflito que existia entre
- * CSS e JavaScript.
- */
+    document.querySelector(
+        "#imagemAmpliada"
+    );
 
 const videoWrapper =
     document.querySelector(
@@ -471,22 +668,34 @@ const videoWrapper =
     );
 
 const videoAmpliado =
-    document.querySelector("#videoAmpliado");
+    document.querySelector(
+        "#videoAmpliado"
+    );
 
 const botaoPlayVideo =
-    document.querySelector("#botaoPlayVideo");
+    document.querySelector(
+        "#botaoPlayVideo"
+    );
 
 const fecharGaleria =
-    document.querySelector("#fecharGaleria");
+    document.querySelector(
+        "#fecharGaleria"
+    );
 
 const fotoAnterior =
-    document.querySelector("#fotoAnterior");
+    document.querySelector(
+        "#fotoAnterior"
+    );
 
 const fotoSeguinte =
-    document.querySelector("#fotoSeguinte");
+    document.querySelector(
+        "#fotoSeguinte"
+    );
 
 const itensGaleria =
-    document.querySelectorAll(".foto-memoria");
+    document.querySelectorAll(
+        ".foto-memoria"
+    );
 
 const imagemContainer =
     document.querySelector(
@@ -511,17 +720,26 @@ function abrirItem(indice) {
     }
 
 
-    fotoAtual = indice;
+    fotoAtual =
+        indice;
 
 
     const item =
-        itensGaleria[fotoAtual];
+        itensGaleria[
+            fotoAtual
+        ];
+
 
     const imagem =
-        item.querySelector("img");
+        item.querySelector(
+            "img"
+        );
+
 
     const video =
-        item.querySelector("video");
+        item.querySelector(
+            "video"
+        );
 
 
     // -----------------------------------------------------
@@ -533,10 +751,14 @@ function abrirItem(indice) {
         videoAmpliado.pause();
 
         try {
-            videoAmpliado.currentTime = 0;
+
+            videoAmpliado.currentTime =
+                0;
+
         } catch (erro) {
             // Ignorar
         }
+
 
         videoAmpliado.style.display =
             "none";
@@ -573,9 +795,11 @@ function abrirItem(indice) {
                 imagem.currentSrc ||
                 imagem.src;
 
+
             imagemAmpliada.alt =
                 imagem.alt ||
                 "Memória ampliada";
+
 
             imagemAmpliada.style.display =
                 "block";
@@ -615,10 +839,14 @@ function abrirItem(indice) {
                 );
 
 
-            let caminhoVideo = "";
+            let caminhoVideo =
+                "";
 
 
-            if (source && source.src) {
+            if (
+                source &&
+                source.src
+            ) {
 
                 caminhoVideo =
                     source.src;
@@ -637,16 +865,13 @@ function abrirItem(indice) {
                 caminhoVideo;
 
 
-            /*
-             * O vídeo ampliado usa o nosso
-             * botão azul de Play.
-             */
-
             videoAmpliado.controls =
                 false;
 
+
             videoAmpliado.style.display =
                 "block";
+
 
             videoAmpliado.load();
 
@@ -671,11 +896,14 @@ function abrirItem(indice) {
     imagemContainer.style.transition =
         "none";
 
+
     imagemContainer.style.transform =
         "scale(0.85)";
 
 
-    visualizador.style.opacity = "";
+    visualizador.style.opacity =
+        "";
+
 
     visualizador.style.background =
         "rgba(0, 0, 0, 0.92)";
@@ -690,15 +918,18 @@ function abrirItem(indice) {
         "hidden";
 
 
-    requestAnimationFrame(function () {
+    requestAnimationFrame(
+        function () {
 
-        imagemContainer.style.transition =
-            "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)";
+            imagemContainer.style.transition =
+                "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)";
 
-        imagemContainer.style.transform =
-            "scale(1)";
 
-    });
+            imagemContainer.style.transform =
+                "scale(1)";
+
+        }
+    );
 
 }
 
@@ -708,13 +939,21 @@ function abrirItem(indice) {
 // =========================================================
 
 itensGaleria.forEach(
-    function (item, indice) {
+    function (
+        item,
+        indice
+    ) {
 
         const imagem =
-            item.querySelector("img");
+            item.querySelector(
+                "img"
+            );
+
 
         const video =
-            item.querySelector("video");
+            item.querySelector(
+                "video"
+            );
 
 
         if (imagem) {
@@ -723,7 +962,9 @@ itensGaleria.forEach(
                 "click",
                 function () {
 
-                    abrirItem(indice);
+                    abrirItem(
+                        indice
+                    );
 
                 }
             );
@@ -740,7 +981,10 @@ itensGaleria.forEach(
                     evento.preventDefault();
                     evento.stopPropagation();
 
-                    abrirItem(indice);
+
+                    abrirItem(
+                        indice
+                    );
 
                 }
             );
@@ -774,24 +1018,30 @@ if (botaoPlayVideo) {
                 videoAmpliado.play();
 
 
-            if (promessa !== undefined) {
+            if (
+                promessa !== undefined
+            ) {
 
                 promessa
-                    .then(function () {
+                    .then(
+                        function () {
 
-                        botaoPlayVideo.classList.add(
-                            "escondido"
-                        );
+                            botaoPlayVideo.classList.add(
+                                "escondido"
+                            );
 
-                    })
-                    .catch(function (erro) {
+                        }
+                    )
+                    .catch(
+                        function (erro) {
 
-                        console.error(
-                            "Não foi possível reproduzir o vídeo:",
-                            erro
-                        );
+                            console.error(
+                                "Não foi possível reproduzir o vídeo:",
+                                erro
+                            );
 
-                    });
+                        }
+                    );
 
             }
 
@@ -857,7 +1107,10 @@ function fecharVisualizador() {
         videoAmpliado.pause();
 
         try {
-            videoAmpliado.currentTime = 0;
+
+            videoAmpliado.currentTime =
+                0;
+
         } catch (erro) {
             // Ignorar
         }
@@ -882,7 +1135,9 @@ function fecharVisualizador() {
 
 function proximaFoto() {
 
-    if (itensGaleria.length === 0) {
+    if (
+        itensGaleria.length === 0
+    ) {
         return;
     }
 
@@ -900,7 +1155,9 @@ function proximaFoto() {
     }
 
 
-    abrirItem(fotoAtual);
+    abrirItem(
+        fotoAtual
+    );
 
 }
 
@@ -911,7 +1168,9 @@ function proximaFoto() {
 
 function anteriorFoto() {
 
-    if (itensGaleria.length === 0) {
+    if (
+        itensGaleria.length === 0
+    ) {
         return;
     }
 
@@ -919,7 +1178,9 @@ function anteriorFoto() {
     fotoAtual--;
 
 
-    if (fotoAtual < 0) {
+    if (
+        fotoAtual < 0
+    ) {
 
         fotoAtual =
             itensGaleria.length - 1;
@@ -927,7 +1188,9 @@ function anteriorFoto() {
     }
 
 
-    abrirItem(fotoAtual);
+    abrirItem(
+        fotoAtual
+    );
 
 }
 
@@ -1009,21 +1272,30 @@ document.addEventListener(
         }
 
 
-        if (evento.key === "Escape") {
+        if (
+            evento.key ===
+            "Escape"
+        ) {
 
             fecharVisualizador();
 
         }
 
 
-        if (evento.key === "ArrowRight") {
+        if (
+            evento.key ===
+            "ArrowRight"
+        ) {
 
             proximaFoto();
 
         }
 
 
-        if (evento.key === "ArrowLeft") {
+        if (
+            evento.key ===
+            "ArrowLeft"
+        ) {
 
             anteriorFoto();
 
@@ -1070,13 +1342,17 @@ if (
             toqueInicialX =
                 evento.touches[0].clientX;
 
+
             toqueInicialY =
                 evento.touches[0].clientY;
+
 
             movimentoX = 0;
             movimentoY = 0;
 
-            arrastandoFoto = true;
+
+            arrastandoFoto =
+                true;
 
 
             imagemContainer.style.transition =
@@ -1104,6 +1380,7 @@ if (
             const toqueAtualX =
                 evento.touches[0].clientX;
 
+
             const toqueAtualY =
                 evento.touches[0].clientY;
 
@@ -1112,16 +1389,22 @@ if (
                 toqueAtualX -
                 toqueInicialX;
 
+
             movimentoY =
                 toqueAtualY -
                 toqueInicialY;
 
 
             const distanciaX =
-                Math.abs(movimentoX);
+                Math.abs(
+                    movimentoX
+                );
+
 
             const distanciaY =
-                Math.abs(movimentoY);
+                Math.abs(
+                    movimentoY
+                );
 
 
             // -------------------------------------------------
@@ -1201,14 +1484,20 @@ if (
             }
 
 
-            arrastandoFoto = false;
+            arrastandoFoto =
+                false;
 
 
             const distanciaX =
-                Math.abs(movimentoX);
+                Math.abs(
+                    movimentoX
+                );
+
 
             const distanciaY =
-                Math.abs(movimentoY);
+                Math.abs(
+                    movimentoY
+                );
 
 
             // -------------------------------------------------
@@ -1377,7 +1666,8 @@ if (
         "touchcancel",
         function () {
 
-            arrastandoFoto = false;
+            arrastandoFoto =
+                false;
 
 
             imagemContainer.style.transition =
@@ -1405,22 +1695,34 @@ if (
 // =========================================================
 
 const musicaThoseEyes =
-    document.querySelector("#musicaThoseEyes");
+    document.querySelector(
+        "#musicaThoseEyes"
+    );
 
 const botaoMusica =
-    document.querySelector("#botaoMusica");
+    document.querySelector(
+        "#botaoMusica"
+    );
 
 const barraProgresso =
-    document.querySelector("#barraProgresso");
+    document.querySelector(
+        "#barraProgresso"
+    );
 
 const progressoMusica =
-    document.querySelector(".progresso-musica");
+    document.querySelector(
+        ".progresso-musica"
+    );
 
 const tempoMusica =
-    document.querySelector("#tempoMusica");
+    document.querySelector(
+        "#tempoMusica"
+    );
 
 const cartaoMusica =
-    document.querySelector(".cartao-musica");
+    document.querySelector(
+        ".cartao-musica"
+    );
 
 
 if (
@@ -1432,15 +1734,23 @@ if (
     cartaoMusica
 ) {
 
-    function formatarTempo(segundos) {
+    function formatarTempo(
+        segundos
+    ) {
 
-        if (!Number.isFinite(segundos)) {
+        if (
+            !Number.isFinite(
+                segundos
+            )
+        ) {
             return "0:00";
         }
 
 
         segundos =
-            Math.floor(segundos);
+            Math.floor(
+                segundos
+            );
 
 
         const minutos =
@@ -1458,7 +1768,10 @@ if (
             ":" +
             String(
                 segundosRestantes
-            ).padStart(2, "0")
+            ).padStart(
+                2,
+                "0"
+            )
         );
 
     }
@@ -1520,10 +1833,12 @@ if (
             botaoMusica.textContent =
                 "❚❚";
 
+
             botaoMusica.setAttribute(
                 "aria-label",
                 "Pausar música"
             );
+
 
             cartaoMusica.classList.add(
                 "tocando"
@@ -1540,10 +1855,12 @@ if (
             botaoMusica.textContent =
                 "▶";
 
+
             botaoMusica.setAttribute(
                 "aria-label",
                 "Ouvir música"
             );
+
 
             cartaoMusica.classList.remove(
                 "tocando"
@@ -1643,16 +1960,20 @@ if (
             barraProgresso.style.width =
                 "0%";
 
+
             tempoMusica.textContent =
                 "0:00";
 
+
             botaoMusica.textContent =
                 "▶";
+
 
             botaoMusica.setAttribute(
                 "aria-label",
                 "Ouvir música"
             );
+
 
             cartaoMusica.classList.remove(
                 "tocando"
@@ -1681,16 +2002,24 @@ if (
 // =========================================================
 
 const envelopeCarta =
-    document.querySelector(".envelope-carta");
+    document.querySelector(
+        ".envelope-carta"
+    );
 
 const botaoAbrirCarta =
-    document.querySelector("#abrirCarta");
+    document.querySelector(
+        "#abrirCarta"
+    );
 
 const cartaAberta =
-    document.querySelector("#cartaAberta");
+    document.querySelector(
+        "#cartaAberta"
+    );
 
 const fecharCarta =
-    document.querySelector("#fecharCarta");
+    document.querySelector(
+        "#fecharCarta"
+    );
 
 
 if (
@@ -1707,10 +2036,12 @@ if (
                 "aberta"
             );
 
+
             cartaAberta.setAttribute(
                 "aria-hidden",
                 "false"
             );
+
 
             document.body.style.overflow =
                 "hidden";
@@ -1791,7 +2122,8 @@ document.addEventListener(
 
 
         if (
-            evento.key === "Escape"
+            evento.key ===
+            "Escape"
         ) {
 
             fecharCartaEspecial();
@@ -1802,267 +2134,210 @@ document.addEventListener(
 );
 
 
-// =========================================================
-// CONTADOR DE ANIVERSÁRIO
-// =========================================================
-
-// true  = teste de 5 segundos
-// false = data real
-
-const MODO_TESTE = true;
-
-const DURACAO_TESTE = 5;
-
-const DATA_ANIVERSARIO =
-    new Date(
-        "2026-10-02T00:00:00"
-    );
-
-
-const contadorAniversario =
-    document.querySelector(
-        "#contadorAniversario"
-    );
-
-const diasElemento =
-    document.querySelector("#dias");
-
-const horasElemento =
-    document.querySelector("#horas");
-
-const minutosElemento =
-    document.querySelector("#minutos");
-
-const segundosElemento =
-    document.querySelector("#segundos");
-
-
-if (
-    contadorAniversario &&
-    diasElemento &&
-    horasElemento &&
-    minutosElemento &&
-    segundosElemento
-) {
-
-    let momentoFinal;
-
-    let contadorIntervalo = null;
-
-
-    if (MODO_TESTE) {
-
-        momentoFinal =
-            Date.now() +
-            DURACAO_TESTE * 1000;
-
-    } else {
-
-        momentoFinal =
-            DATA_ANIVERSARIO.getTime();
-
-    }
-
-
-    function formatarNumero(numero) {
-
-        return String(numero).padStart(
-            2,
-            "0"
-        );
-
-    }
-
-function desbloquearSite() {
-    contadorAniversario.classList.add("liberado");
-
-    document.body.style.overflow = "";
-
-    console.log("🎉 Contador terminou! Site desbloqueado.");
-}
-
-
-    function actualizarContador() {
-
-        const agora =
-            Date.now();
-
-
-        const diferenca =
-            momentoFinal -
-            agora;
-
-
-        if (
-            diferenca <= 0
-        ) {
-
-            diasElemento.textContent =
-                "00";
-
-            horasElemento.textContent =
-                "00";
-
-            minutosElemento.textContent =
-                "00";
-
-            segundosElemento.textContent =
-                "00";
-
-
-            if (
-                contadorIntervalo
-            ) {
-
-                clearInterval(
-                    contadorIntervalo
-                );
-
-                contadorIntervalo =
-                    null;
-
-            }
-
-
-            desbloquearSite();
-
-            return;
-
-        }
-
-
-        const totalSegundos =
-            Math.floor(
-                diferenca / 1000
-            );
-
-
-        const dias =
-            Math.floor(
-                totalSegundos /
-                (60 * 60 * 24)
-            );
-
-
-        const horas =
-            Math.floor(
-                (
-                    totalSegundos %
-                    (60 * 60 * 24)
-                ) /
-                (60 * 60)
-            );
-
-
-        const minutos =
-            Math.floor(
-                (
-                    totalSegundos %
-                    (60 * 60)
-                ) /
-                60
-            );
-
-
-        const segundos =
-            totalSegundos %
-            60;
-
-
-        diasElemento.textContent =
-            formatarNumero(dias);
-
-        horasElemento.textContent =
-            formatarNumero(horas);
-
-        minutosElemento.textContent =
-            formatarNumero(minutos);
-
-        segundosElemento.textContent =
-            formatarNumero(segundos);
-
-    }
-
-
-    // -----------------------------------------------------
-    // BLOQUEAR SITE
-    // -----------------------------------------------------
-
-    document.body.style.overflow =
-        "hidden";
-
-
-    // -----------------------------------------------------
-    // PRIMEIRA ACTUALIZAÇÃO
-    // -----------------------------------------------------
-
-    actualizarContador();
-
-
-    // -----------------------------------------------------
-    // INTERVALO
-    // -----------------------------------------------------
-
-    contadorIntervalo =
-        setInterval(
-            actualizarContador,
-            1000
-        );
-
-}
-
 // =========================================
 // SISTEMA DE REVELAÇÃO DO RESTO DA SURPRESA
 // =========================================
 
-const btnRevelarSurpresa = document.querySelector("#btnRevelarSurpresa");
-const revelarSurpresa = document.querySelector("#revelarSurpresa");
+const btnRevelarSurpresa =
+    document.querySelector(
+        "#btnRevelarSurpresa"
+    );
 
-if(revelarSurpresa){
-    revelarSurpresa.style.display="none";
+const revelarSurpresa =
+    document.querySelector(
+        "#revelarSurpresa"
+    );
+
+
+// Elementos que serão desbloqueados
+// depois do Momento 12
+const restoDoSite =
+    document.querySelectorAll(
+        "#galeria, #sobre-ela, #carta, #aniversario, footer"
+    );
+
+
+// =========================================================
+// VERIFICAR SE A SURPRESA JÁ FOI DESBLOQUEADA
+// =========================================================
+
+const surpresaJaDesbloqueada =
+    localStorage.getItem(
+        "surpresaDesbloqueada"
+    ) === "true";
+
+
+if (surpresaJaDesbloqueada) {
+
+    console.log(
+        "🔓 Surpresa já desbloqueada anteriormente."
+    );
+
+
+    // Mostrar o resto do site
+    restoDoSite.forEach(
+        function (secao) {
+
+            secao.style.display =
+                "";
+
+        }
+    );
+
+
+    // Botão não precisa aparecer
+    if (revelarSurpresa) {
+
+        revelarSurpresa.style.display =
+            "none";
+
+    }
+
+} else {
+
+    // Ainda não desbloqueou
+    // Então esconder o resto
+    restoDoSite.forEach(
+        function (secao) {
+
+            secao.style.display =
+                "none";
+
+        }
+    );
+
+
+    if (revelarSurpresa) {
+
+        revelarSurpresa.style.display =
+            "none";
+
+    }
+
 }
 
-// Elementos que serão desbloqueados depois do Momento 12
-const restoDoSite = document.querySelectorAll(
-    "#galeria, #sobre-ela, #carta, #aniversario, footer"
-);
 
+// =========================================================
+// CLICAR EM "REVELAR SURPRESA"
+// =========================================================
 
-// Esconde o resto do site inicialmente
-restoDoSite.forEach(function(secao) {
-    secao.style.display = "none";
-});
-
-
-// Quando ela clicar no botão...
 if (btnRevelarSurpresa) {
 
-    btnRevelarSurpresa.addEventListener("click", function() {
+    btnRevelarSurpresa.addEventListener(
+        "click",
+        function () {
 
-        console.log("✨ A surpresa continua...");
+            console.log(
+                "✨ A surpresa continua..."
+            );
 
-        // Revelar o resto do site
-        restoDoSite.forEach(function(secao) {
-            secao.style.display = "";
-        });
 
-        // Esconder o botão depois de utilizado
-        if (revelarSurpresa) {
-            revelarSurpresa.style.display = "none";
+            // =================================================
+            // GUARDAR QUE O RESTO DA SURPRESA FOI DESBLOQUEADO
+            // =================================================
+
+            localStorage.setItem(
+                "surpresaDesbloqueada",
+                "true"
+            );
+
+
+            // Guardar também o progresso completo
+            guardarProgresso();
+
+
+            // Revelar o resto do site
+            restoDoSite.forEach(
+                function (secao) {
+
+                    secao.style.display =
+                        "";
+
+                }
+            );
+
+
+            // Esconder o botão depois de utilizado
+            if (revelarSurpresa) {
+
+                revelarSurpresa.style.display =
+                    "none";
+
+            }
+
+
+            // Levar suavemente até à galeria
+            const galeria =
+                document.querySelector(
+                    "#galeria"
+                );
+
+
+            if (galeria) {
+
+                setTimeout(
+                    function () {
+
+                        galeria.scrollIntoView({
+                            behavior:
+                                "smooth",
+
+                            block:
+                                "start"
+                        });
+
+                    },
+                    100
+                );
+
+            }
+
         }
+    );
 
-        // Levar suavemente até à galeria
-        const galeria = document.querySelector("#galeria");
+}
 
-        if (galeria) {
-            setTimeout(function() {
-                galeria.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-            }, 100);
+
+// =========================================================
+// BOTÃO — RECOMEÇAR A SURPRESA
+// =========================================================
+
+const btnResetarSurpresa =
+    document.querySelector("#btnResetarSurpresa");
+
+if (btnResetarSurpresa) {
+
+    btnResetarSurpresa.addEventListener(
+        "click",
+        function () {
+
+            const confirmar =
+                confirm(
+                    "💙 Tens a certeza que queres recomeçar a surpresa?\n\n" +
+                    "O teu progresso atual será apagado e vais voltar ao Momento 1."
+                );
+
+            if (!confirmar) {
+                return;
+            }
+
+            // Apagar o progresso
+            localStorage.removeItem(
+                "progressoSurpresaJacileth"
+            );
+
+            localStorage.removeItem(
+                "surpresaDesbloqueada"
+            );
+
+            console.log(
+                "🔄 Surpresa reiniciada."
+            );
+
+            // Recarregar o site
+            window.location.reload();
+
         }
-
-    });
+    );
 
 }
