@@ -1826,6 +1826,43 @@ if (
     cartaoMusica
 ) {
 
+    console.log("🎵 DIAGNÓSTICO DA MÚSICA INICIADO");
+
+musicaThoseEyes.addEventListener("play", () => {
+    console.log("▶️ PLAY", musicaThoseEyes.currentTime);
+});
+
+musicaThoseEyes.addEventListener("playing", () => {
+    console.log("🟢 PLAYING", musicaThoseEyes.currentTime);
+});
+
+musicaThoseEyes.addEventListener("pause", () => {
+    console.log("⏸️ PAUSE", musicaThoseEyes.currentTime);
+});
+
+musicaThoseEyes.addEventListener("waiting", () => {
+    console.log("⏳ WAITING / BUFFERING", musicaThoseEyes.currentTime);
+});
+
+musicaThoseEyes.addEventListener("stalled", () => {
+    console.log("🐌 STALLED", musicaThoseEyes.currentTime);
+});
+
+musicaThoseEyes.addEventListener("canplay", () => {
+    console.log("✅ CANPLAY", musicaThoseEyes.currentTime);
+});
+
+musicaThoseEyes.addEventListener("error", () => {
+    console.log(
+        "❌ ERRO",
+        musicaThoseEyes.error
+    );
+});
+
+musicaThoseEyes.addEventListener("ended", () => {
+    console.log("🏁 ENDED");
+});
+
     function formatarTempo(
         segundos
     ) {
