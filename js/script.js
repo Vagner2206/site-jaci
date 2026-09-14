@@ -1917,42 +1917,48 @@ musicaThoseEyes.addEventListener("ended", () => {
 
 
     botaoMusica.addEventListener(
-        "click",
-        function () {
+    "click",
+    async function () {
 
-            if (
-                musicaThoseEyes.paused
-            ) {
+        console.log(
+            "🎵 CLIQUE NO BOTÃO",
+            "paused:",
+            musicaThoseEyes.paused,
+            "currentTime:",
+            musicaThoseEyes.currentTime
+        );
 
-                const promessa =
-                    musicaThoseEyes.play();
+        if (musicaThoseEyes.paused) {
 
+            try {
 
-                if (
-                    promessa !== undefined
-                ) {
+                await musicaThoseEyes.play();
 
-                    promessa.catch(
-                        function (erro) {
+                console.log(
+                    "✅ PLAY INICIADO"
+                );
 
-                            console.error(
-                                "Não foi possível reproduzir a música:",
-                                erro
-                            );
+            } catch (erro) {
 
-                        }
-                    );
-
-                }
-
-            } else {
-
-                musicaThoseEyes.pause();
+                console.error(
+                    "❌ PLAY FOI INTERROMPIDO:",
+                    erro
+                );
 
             }
 
+        } else {
+
+            musicaThoseEyes.pause();
+
+            console.log(
+                "⏸️ PAUSE PEDIDO PELO BOTÃO"
+            );
+
         }
-    );
+
+    }
+);
 
 
     musicaThoseEyes.addEventListener(
