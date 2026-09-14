@@ -85,14 +85,27 @@ let temporizadorHistoria = null;
 
 
 // =========================================================
-// STORAGE — GUARDAR O PROGRESSO DA SURPRESA
+// STORAGE — SISTEMA CENTRAL DO PROGRESSO
 // =========================================================
 
 const CHAVE_STORAGE =
     "progressoSurpresaJacileth";
 
+const CHAVE_DESBLOQUEIO =
+    "surpresaDesbloqueada";
+
+
+// =========================================================
+// GUARDAR PROGRESSO
+// =========================================================
 
 function guardarProgresso() {
+
+    const surpresaDesbloqueada =
+        localStorage.getItem(
+            CHAVE_DESBLOQUEIO
+        ) === "true";
+
 
     const progresso = {
 
@@ -100,47 +113,69 @@ function guardarProgresso() {
             momentoAtual,
 
         surpresaDesbloqueada:
-            localStorage.getItem(
-                "surpresaDesbloqueada"
-            ) === "true"
+            surpresaDesbloqueada
 
     };
 
 
-    localStorage.setItem(
-        CHAVE_STORAGE,
-        JSON.stringify(progresso)
-    );
+    try {
+
+        localStorage.setItem(
+            CHAVE_STORAGE,
+            JSON.stringify(progresso)
+        );
 
 
-    console.log(
-        "💾 Progresso guardado:",
-        progresso
-    );
+        console.log(
+            "💾 Progresso guardado:",
+            progresso
+        );
+
+
+    } catch (erro) {
+
+        console.error(
+            "⚠️ Não foi possível guardar o progresso:",
+            erro
+        );
+
+    }
 
 }
 
 
+// =========================================================
+// CARREGAR PROGRESSO
+// =========================================================
+
 function carregarProgresso() {
 
-    const progressoGuardado =
-        localStorage.getItem(
-            CHAVE_STORAGE
-        );
-
-
-    if (!progressoGuardado) {
-
-        console.log(
-            "🆕 Nenhum progresso encontrado."
-        );
-
-        return null;
-
-    }
-
-
     try {
+
+        const progressoGuardado =
+            localStorage.getItem(
+                CHAVE_STORAGE
+            );
+
+
+        if (!progressoGuardado) {
+
+            console.log(
+                "🆕 Nenhum progresso encontrado."
+            );
+
+
+            return {
+
+                momentoAtual: 0,
+
+                surpresaDesbloqueada:
+                    false
+
+            };
+
+        }
+
 
         const progresso =
             JSON.parse(
@@ -148,21 +183,79 @@ function carregarProgresso() {
             );
 
 
+        // -------------------------------------------------
+        // VALIDAR O MOMENTO
+        // -------------------------------------------------
+
+        let momentoGuardado =
+            0;
+
+
+        if (
+            typeof progresso.momentoAtual ===
+                "number" &&
+            Number.isFinite(
+                progresso.momentoAtual
+            ) &&
+            progresso.momentoAtual >= 0 &&
+            progresso.momentoAtual <
+                momentos.length
+        ) {
+
+            momentoGuardado =
+                Math.floor(
+                    progresso.momentoAtual
+                );
+
+        }
+
+
+        // -------------------------------------------------
+        // VERIFICAR DESBLOQUEIO
+        // -------------------------------------------------
+
+        const desbloqueada =
+            localStorage.getItem(
+                CHAVE_DESBLOQUEIO
+            ) === "true";
+
+
+        const progressoFinal = {
+
+            momentoAtual:
+                momentoGuardado,
+
+            surpresaDesbloqueada:
+                desbloqueada
+
+        };
+
+
         console.log(
             "📂 Progresso recuperado:",
-            progresso
+            progressoFinal
         );
 
 
-        return progresso;
+        return progressoFinal;
+
 
     } catch (erro) {
 
-        console.log(
-            "⚠️ Erro ao recuperar o progresso."
+        console.error(
+            "⚠️ Erro ao recuperar o progresso:",
+            erro
         );
 
-        return null;
+
+        return {
+
+            momentoAtual: 0,
+
+            surpresaDesbloqueada:
+                false
+
+        };
 
     }
 
@@ -385,30 +478,29 @@ if (momentos.length > 0) {
     // =====================================================
 
     const progresso =
-        carregarProgresso();
+    carregarProgresso();
 
 
-    let momentoInicial =
-        0;
+let momentoInicial =
+    0;
 
 
-    if (progresso) {
+if (
+    progresso &&
+    typeof progresso.momentoAtual ===
+        "number"
+) {
 
-        if (
-            typeof progresso.momentoAtual ===
-                "number" &&
-            progresso.momentoAtual >= 0 &&
-            progresso.momentoAtual <
-                momentos.length
-        ) {
+    momentoInicial =
+        Math.max(
+            0,
+            Math.min(
+                progresso.momentoAtual,
+                momentos.length - 1
+            )
+        );
 
-            momentoInicial =
-                progresso.momentoAtual;
-
-        }
-
-    }
-
+}
 
     momentoAtual =
         momentoInicial;
@@ -2153,7 +2245,7 @@ const revelarSurpresa =
 // depois do Momento 12
 const restoDoSite =
     document.querySelectorAll(
-        "#galeria, #sobre-ela, #carta, #aniversario, footer"
+        "#galeria, #sobre-ela, #carta, #aniversario, #capsula-final, footer"
     );
 
 
@@ -2163,7 +2255,7 @@ const restoDoSite =
 
 const surpresaJaDesbloqueada =
     localStorage.getItem(
-        "surpresaDesbloqueada"
+        CHAVE_DESBLOQUEIO
     ) === "true";
 
 
@@ -2236,10 +2328,10 @@ if (btnRevelarSurpresa) {
             // GUARDAR QUE O RESTO DA SURPRESA FOI DESBLOQUEADO
             // =================================================
 
-            localStorage.setItem(
-                "surpresaDesbloqueada",
-                "true"
-            );
+           localStorage.setItem(
+    CHAVE_DESBLOQUEIO,
+    "true"
+);
 
 
             // Guardar também o progresso completo
@@ -2322,13 +2414,13 @@ if (btnResetarSurpresa) {
             }
 
             // Apagar o progresso
-            localStorage.removeItem(
-                "progressoSurpresaJacileth"
-            );
+           localStorage.removeItem(
+    CHAVE_STORAGE
+);
 
-            localStorage.removeItem(
-                "surpresaDesbloqueada"
-            );
+localStorage.removeItem(
+    CHAVE_DESBLOQUEIO
+);
 
             console.log(
                 "🔄 Surpresa reiniciada."
@@ -2341,3 +2433,965 @@ if (btnResetarSurpresa) {
     );
 
 }
+
+// =========================================================
+// EASTER EGG — CORAÇÃO SECRETO
+// =========================================================
+
+
+const easterEggCoracao =
+    document.querySelector(
+        "#easterEggCoracao"
+    );
+
+
+const easterEggContador =
+    document.querySelector(
+        "#easterEggContador"
+    );
+
+
+const easterEggModal =
+    document.querySelector(
+        "#easterEggModal"
+    );
+
+
+const fecharEasterEgg =
+    document.querySelector(
+        "#fecharEasterEgg"
+    );
+
+
+const botaoFecharEasterEgg =
+    document.querySelector(
+        "#botaoFecharEasterEgg"
+    );
+
+
+// =========================================================
+// CONFIGURAÇÃO
+// =========================================================
+
+const CLIQUES_NECESSARIOS_EASTER_EGG =
+    5;
+
+
+let cliquesEasterEgg =
+    0;
+
+
+// =========================================================
+// FUNÇÃO — ABRIR EASTER EGG
+// =========================================================
+
+function abrirEasterEgg() {
+
+    if (
+        !easterEggModal
+    ) {
+        return;
+    }
+
+
+    easterEggModal.classList.add(
+        "aberto"
+    );
+
+
+    easterEggModal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    console.log(
+        "💙 Easter Egg encontrado!"
+    );
+
+}
+
+
+// =========================================================
+// FUNÇÃO — FECHAR EASTER EGG
+// =========================================================
+
+function fecharEasterEggModal() {
+
+    if (
+        !easterEggModal
+    ) {
+        return;
+    }
+
+
+    easterEggModal.classList.remove(
+        "aberto"
+    );
+
+
+    easterEggModal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+
+    console.log(
+        "💙 Easter Egg fechado."
+    );
+
+}
+
+
+// =========================================================
+// FUNÇÃO — ANIMAR CORAÇÃO
+// =========================================================
+
+function animarCoracao() {
+
+    if (
+        !easterEggCoracao
+    ) {
+        return;
+    }
+
+
+    easterEggCoracao.classList.remove(
+        "pulsar"
+    );
+
+
+    // Forçar o navegador a reiniciar
+    // a animação
+    void easterEggCoracao.offsetWidth;
+
+
+    easterEggCoracao.classList.add(
+        "pulsar"
+    );
+
+}
+
+
+// =========================================================
+// FUNÇÃO — ATUALIZAR CONTADOR
+// =========================================================
+
+function atualizarContadorEasterEgg() {
+
+    if (
+        !easterEggContador
+    ) {
+        return;
+    }
+
+
+    // -----------------------------------------------------
+    // Antes de 3 cliques
+    // -----------------------------------------------------
+
+    if (
+        cliquesEasterEgg < 3
+    ) {
+
+        easterEggContador.textContent =
+            "";
+
+
+        easterEggContador.classList.remove(
+            "mostrar"
+        );
+
+
+        return;
+
+    }
+
+
+    // -----------------------------------------------------
+    // A partir do terceiro clique
+    // -----------------------------------------------------
+
+    const restantes =
+        CLIQUES_NECESSARIOS_EASTER_EGG -
+        cliquesEasterEgg;
+
+
+    if (
+        restantes > 0
+    ) {
+
+        easterEggContador.textContent =
+            "👀 Falta pouco...";
+
+
+        easterEggContador.classList.add(
+            "mostrar"
+        );
+
+    }
+
+}
+
+
+// =========================================================
+// CLIQUE NO CORAÇÃO
+// =========================================================
+
+if (
+    easterEggCoracao
+) {
+
+    easterEggCoracao.addEventListener(
+        "click",
+        function () {
+
+            // -------------------------------------------------
+            // Aumentar contador
+            // -------------------------------------------------
+
+            cliquesEasterEgg++;
+
+
+            console.log(
+                "💙 Clique secreto:",
+                cliquesEasterEgg,
+                "/",
+                CLIQUES_NECESSARIOS_EASTER_EGG
+            );
+
+
+            // -------------------------------------------------
+            // Animar
+            // -------------------------------------------------
+
+            animarCoracao();
+
+
+            // -------------------------------------------------
+            // Atualizar mensagem
+            // -------------------------------------------------
+
+            atualizarContadorEasterEgg();
+
+
+            // -------------------------------------------------
+            // Verificar se chegou aos 5 cliques
+            // -------------------------------------------------
+
+            if (
+                cliquesEasterEgg >=
+                CLIQUES_NECESSARIOS_EASTER_EGG
+            ) {
+
+                setTimeout(
+                    function () {
+
+                        abrirEasterEgg();
+
+
+                        // Preparar novamente
+                        // para uma nova descoberta
+
+                        cliquesEasterEgg =
+                            0;
+
+
+                        if (
+                            easterEggContador
+                        ) {
+
+                            easterEggContador.textContent =
+                                "";
+
+
+                            easterEggContador.classList.remove(
+                                "mostrar"
+                            );
+
+                        }
+
+                    },
+                    300
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+// =========================================================
+// BOTÃO X
+// =========================================================
+
+if (
+    fecharEasterEgg
+) {
+
+    fecharEasterEgg.addEventListener(
+        "click",
+        fecharEasterEggModal
+    );
+
+}
+
+
+// =========================================================
+// BOTÃO FECHAR
+// =========================================================
+
+if (
+    botaoFecharEasterEgg
+) {
+
+    botaoFecharEasterEgg.addEventListener(
+        "click",
+        fecharEasterEggModal
+    );
+
+}
+
+
+// =========================================================
+// CLICAR NO FUNDO
+// =========================================================
+
+if (
+    easterEggModal
+) {
+
+    easterEggModal.addEventListener(
+        "click",
+        function (evento) {
+
+            if (
+                evento.target ===
+                easterEggModal
+            ) {
+
+                fecharEasterEggModal();
+
+            }
+
+        }
+    );
+
+}
+
+
+// =========================================================
+// ESC — FECHAR
+// =========================================================
+
+document.addEventListener(
+    "keydown",
+    function (evento) {
+
+        if (
+            !easterEggModal ||
+            !easterEggModal.classList.contains(
+                "aberto"
+            )
+        ) {
+            return;
+        }
+
+
+        if (
+            evento.key ===
+            "Escape"
+        ) {
+
+            fecharEasterEggModal();
+
+        }
+
+    }
+);
+
+// =========================================================
+// FASE 3 — CÁPSULA DO TEMPO
+// =========================================================
+
+
+// =========================================================
+// ELEMENTOS
+// =========================================================
+
+const abrirCapsulaTempo =
+    document.querySelector(
+        "#abrirCapsulaTempo"
+    );
+
+
+const capsulaTempoModal =
+    document.querySelector(
+        "#capsulaTempoModal"
+    );
+
+
+const fecharCapsulaTempo =
+    document.querySelector(
+        "#fecharCapsulaTempo"
+    );
+
+
+const botaoFecharCapsula =
+    document.querySelector(
+        "#botaoFecharCapsula"
+    );
+
+
+// =========================================================
+// ABRIR CÁPSULA
+// =========================================================
+
+function abrirCapsula() {
+
+    if (
+        !capsulaTempoModal
+    ) {
+        return;
+    }
+
+
+    capsulaTempoModal.classList.add(
+        "aberto"
+    );
+
+
+    capsulaTempoModal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    console.log(
+        "🔮 Cápsula do tempo aberta."
+    );
+
+}
+
+
+// =========================================================
+// FECHAR CÁPSULA
+// =========================================================
+
+function fecharCapsula() {
+
+    if (
+        !capsulaTempoModal
+    ) {
+        return;
+    }
+
+
+    capsulaTempoModal.classList.remove(
+        "aberto"
+    );
+
+
+    capsulaTempoModal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+
+    console.log(
+        "🔮 Cápsula do tempo fechada."
+    );
+
+}
+
+
+// =========================================================
+// BOTÃO — ABRIR
+// =========================================================
+
+if (
+    abrirCapsulaTempo
+) {
+
+    abrirCapsulaTempo.addEventListener(
+        "click",
+        abrirCapsula
+    );
+
+}
+
+
+// =========================================================
+// BOTÃO X
+// =========================================================
+
+if (
+    fecharCapsulaTempo
+) {
+
+    fecharCapsulaTempo.addEventListener(
+        "click",
+        fecharCapsula
+    );
+
+}
+
+
+// =========================================================
+// BOTÃO — GUARDAR MENSAGEM
+// =========================================================
+
+if (
+    botaoFecharCapsula
+) {
+
+    botaoFecharCapsula.addEventListener(
+        "click",
+        fecharCapsula
+    );
+
+}
+
+
+// =========================================================
+// CLICAR NO FUNDO
+// =========================================================
+
+if (
+    capsulaTempoModal
+) {
+
+    capsulaTempoModal.addEventListener(
+        "click",
+        function (evento) {
+
+            if (
+                evento.target ===
+                capsulaTempoModal
+            ) {
+
+                fecharCapsula();
+
+            }
+
+        }
+    );
+
+}
+
+
+// =========================================================
+// ESC — FECHAR
+// =========================================================
+
+document.addEventListener(
+    "keydown",
+    function (evento) {
+
+        if (
+            !capsulaTempoModal ||
+            !capsulaTempoModal.classList.contains(
+                "aberto"
+            )
+        ) {
+            return;
+        }
+
+
+        if (
+            evento.key ===
+            "Escape"
+        ) {
+
+            fecharCapsula();
+
+        }
+
+    }
+);
+
+
+// =========================================================
+// 🎬 FINAL CINEMATOGRÁFICO
+// =========================================================
+
+const finalCinematografico =
+    document.querySelector("#finalCinematografico");
+
+const cinemaTexto =
+    document.querySelector("#cinemaTexto");
+
+const cinemaRever =
+    document.querySelector("#cinemaRever");
+
+
+// ---------------------------------------------------------
+// CONFIGURAÇÃO DA HISTÓRIA
+// ---------------------------------------------------------
+
+const cenasCinema = [
+
+    {
+        texto:
+            "Havia uma história que começou sem sabermos onde ia dar...",
+        classe: ""
+    },
+
+    {
+        texto:
+            "Uma amizade.",
+        classe: "azul"
+    },
+
+    {
+        texto:
+            "Alguns sentimentos escondidos.",
+        classe: ""
+    },
+
+    {
+        texto:
+            "Um casaco.",
+        classe: "destaque"
+    },
+
+    {
+        texto:
+            "Um coração dividido em dois. 💙",
+        classe: "destaque"
+    },
+
+    {
+        texto:
+            "Um primeiro beijo.",
+        classe: ""
+    },
+
+    {
+        texto:
+            "E finalmente...",
+        classe: ""
+    },
+
+    {
+        texto:
+            "Nós.",
+        classe: "grande-final"
+    },
+
+    {
+        texto:
+            "10 de Maio de 2026.",
+        classe: "azul"
+    },
+
+    {
+        texto:
+            "O dia em que a nossa história ganhou um novo nome.",
+        classe: ""
+    },
+
+    {
+        texto:
+            "Jacileth.",
+        classe: "grande-final"
+    },
+
+    {
+        texto:
+            "Feliz aniversário. ❤️",
+        classe: "destaque"
+    },
+
+    {
+        texto:
+            "E se achaste que esta era a parte final...",
+        classe: ""
+    },
+
+    {
+        texto:
+            "Estás enganada.",
+        classe: "destaque"
+    },
+
+    {
+        texto:
+            "É apenas o começo da nossa história. ❤️",
+        classe: "grande-final"
+    }
+
+];
+
+
+// ---------------------------------------------------------
+// TEMPOS
+// ---------------------------------------------------------
+
+const TEMPO_ENTRE_CENAS = 4200;
+
+const TEMPO_INICIAL = 1200;
+
+const TEMPO_FINAL = 5500;
+
+
+// ---------------------------------------------------------
+// ABRIR CINEMA
+// ---------------------------------------------------------
+
+function iniciarFinalCinematografico() {
+
+    if (!finalCinematografico || !cinemaTexto) {
+        console.warn(
+            "🎬 Elementos do final cinematográfico não encontrados."
+        );
+
+        return;
+    }
+
+
+    // Impede o site de continuar a fazer scroll
+    document.body.style.overflow = "hidden";
+
+
+    // Ativa o ecrã
+    finalCinematografico.classList.add("ativo");
+
+    finalCinematografico.classList.remove("finalizado");
+
+    finalCinematografico.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    // Começamos no primeiro texto
+    cinemaTexto.textContent = "";
+
+    cinemaTexto.className = "cinema-texto";
+
+
+    // Pequeno intervalo para permitir
+    // a entrada cinematográfica do ecrã
+    setTimeout(function () {
+
+        mostrarCenaCinema(0);
+
+    }, TEMPO_INICIAL);
+}
+
+
+// ---------------------------------------------------------
+// MOSTRAR UMA CENA
+// ---------------------------------------------------------
+
+function mostrarCenaCinema(indice) {
+
+    if (
+        !cinemaTexto ||
+        indice >= cenasCinema.length
+    ) {
+        finalizarCinema();
+        return;
+    }
+
+
+    const cena = cenasCinema[indice];
+
+
+    // Primeiro desaparece
+    cinemaTexto.classList.remove("mostrar");
+
+
+    setTimeout(function () {
+
+        // Atualiza o texto
+        cinemaTexto.textContent =
+            cena.texto;
+
+
+        // Limpa classes antigas
+        cinemaTexto.className =
+            "cinema-texto";
+
+
+        // Adiciona classe especial
+        if (cena.classe) {
+
+            cinemaTexto.classList.add(
+                cena.classe
+            );
+
+        }
+
+
+        // Pequeno intervalo antes do fade
+        requestAnimationFrame(function () {
+
+            requestAnimationFrame(function () {
+
+                cinemaTexto.classList.add(
+                    "mostrar"
+                );
+
+            });
+
+        });
+
+
+        // Tempo até à próxima frase
+        setTimeout(function () {
+
+            mostrarCenaCinema(indice + 1);
+
+        }, TEMPO_ENTRE_CENAS);
+
+    }, 900);
+}
+
+
+// ---------------------------------------------------------
+// FINAL DA EXPERIÊNCIA
+// ---------------------------------------------------------
+
+function finalizarCinema() {
+
+    if (!finalCinematografico) return;
+
+
+    // Mantém a última frase durante alguns segundos
+    setTimeout(function () {
+
+        finalCinematografico.classList.add(
+            "finalizado"
+        );
+
+    }, TEMPO_FINAL);
+}
+
+
+// ---------------------------------------------------------
+// REVER A SURPRESA
+// ---------------------------------------------------------
+
+if (cinemaRever) {
+
+    cinemaRever.addEventListener(
+        "click",
+        function () {
+
+            finalCinematografico.classList.remove(
+                "ativo"
+            );
+
+            finalCinematografico.classList.remove(
+                "finalizado"
+            );
+
+            finalCinematografico.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+
+            document.body.style.overflow = "";
+
+
+            // Voltamos para o topo
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+}
+
+
+// ---------------------------------------------------------
+// INTEGRAR COM A CÁPSULA DO TEMPO
+// ---------------------------------------------------------
+
+if (botaoFecharCapsula) {
+
+    botaoFecharCapsula.addEventListener(
+        "click",
+        function () {
+
+            // Primeiro fecha a cápsula
+            fecharCapsula();
+
+
+            // Depois de um pequeno intervalo,
+            // começa o final cinematográfico
+            setTimeout(function () {
+
+                iniciarFinalCinematografico();
+
+            }, 1200);
+
+        }
+    );
+
+}
+
+
+// ---------------------------------------------------------
+// ESC — SAIR DO CINEMA
+// ---------------------------------------------------------
+
+document.addEventListener(
+    "keydown",
+    function (evento) {
+
+        if (
+            !finalCinematografico ||
+            !finalCinematografico.classList.contains(
+                "ativo"
+            )
+        ) {
+            return;
+        }
+
+
+        if (evento.key === "Escape") {
+
+            finalCinematografico.classList.remove(
+                "ativo"
+            );
+
+            finalCinematografico.classList.remove(
+                "finalizado"
+            );
+
+            finalCinematografico.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            document.body.style.overflow = "";
+
+        }
+
+    }
+);
+

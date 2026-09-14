@@ -2282,3 +2282,2083 @@ footer p {
 
 }
 
+
+/* =========================================================
+   3 EXTRAS — EASTER EGG + CÁPSULA DO FUTURO + FINAL CINEMATOGRÁFICO
+   ========================================================= */
+
+/* ---------------- EASTER EGG ---------------- */
+.easter-egg-coracao {
+    display: block;
+    width: 42px;
+    height: 42px;
+    margin: 35px auto 0;
+    padding: 0;
+    border: 1px solid rgba(147,197,253,.08);
+    border-radius: 50%;
+    background: rgba(59,130,246,.025);
+    color: rgba(147,197,253,.18);
+    font-size: 18px;
+    line-height: 1;
+    opacity: .45;
+    cursor: pointer;
+    transition: opacity .3s ease, transform .3s ease, background .3s ease, box-shadow .3s ease;
+}
+
+.easter-egg-coracao:hover,
+.easter-egg-coracao:focus-visible {
+    opacity: .9;
+    background: rgba(59,130,246,.12);
+    box-shadow: 0 0 20px rgba(59,130,246,.18);
+    transform: scale(1.08);
+}
+
+.easter-egg-coracao:active {
+    transform: scale(.9);
+}
+
+/* ---------------- MODAIS DOS EXTRAS ---------------- */
+.extra-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 11000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(2,7,15,.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .45s ease, visibility .45s ease;
+}
+
+.extra-overlay.aberto {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.extra-caixa {
+    position: relative;
+    width: min(680px, 100%);
+    padding: 42px 30px 34px;
+    text-align: center;
+    border: 1px solid rgba(147,197,253,.2);
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(16,43,77,.97), rgba(7,17,31,.98));
+    box-shadow: 0 30px 90px rgba(0,0,0,.55), 0 0 50px rgba(59,130,246,.12);
+    transform: translateY(30px) scale(.94);
+    transition: transform .55s cubic-bezier(.22,1,.36,1);
+}
+
+.extra-overlay.aberto .extra-caixa {
+    transform: translateY(0) scale(1);
+}
+
+.extra-icone {
+    display: block;
+    margin-bottom: 14px;
+    font-size: 42px;
+}
+
+.extra-caixa h3 {
+    margin-bottom: 14px;
+    color: #fff;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.extra-caixa p {
+    max-width: 560px;
+    margin: 0 auto 18px;
+    color: #dbeafe;
+    line-height: 1.8;
+}
+
+.extra-fechar {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 50%;
+    background: rgba(255,255,255,.06);
+    color: rgba(255,255,255,.8);
+    font-size: 24px;
+}
+
+.extra-fechar:hover {
+    background: rgba(255,255,255,.13);
+}
+
+/* ---------------- CÁPSULA DO FUTURO ---------------- */
+.capsula-futuro {
+    border-color: rgba(96,165,250,.3);
+}
+
+.capsula-futuro .extra-caixa {
+    background:
+        radial-gradient(circle at 50% 0%, rgba(96,165,250,.15), transparent 45%),
+        linear-gradient(145deg, rgba(16,43,77,.98), rgba(7,17,31,.99));
+}
+
+.capsula-data {
+    display: inline-block;
+    margin: 4px 0 22px;
+    padding: 6px 14px;
+    border: 1px solid rgba(147,197,253,.15);
+    border-radius: 999px;
+    color: #93c5fd;
+    font-size: .78rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.capsula-assinatura {
+    margin-top: 24px !important;
+    color: #93c5fd !important;
+    font-style: italic;
+}
+
+/* ---------------- FINAL CINEMATOGRÁFICO ---------------- */
+#aniversario.final-cinematografico {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 100vh;
+    background: #020711;
+}
+
+#aniversario.final-cinematografico::before {
+    content: "";
+    position: absolute;
+    inset: -25%;
+    z-index: -2;
+    background:
+        radial-gradient(circle at 50% 45%, rgba(59,130,246,.28), transparent 25%),
+        radial-gradient(circle at 25% 70%, rgba(96,165,250,.1), transparent 22%),
+        radial-gradient(circle at 80% 25%, rgba(37,99,235,.12), transparent 20%);
+    animation: respirarFinal 7s ease-in-out infinite;
+}
+
+#aniversario.final-cinematografico::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+        radial-gradient(circle, rgba(255,255,255,.7) 0 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(147,197,253,.5) 0 1px, transparent 1.5px);
+    background-size: 110px 110px, 170px 170px;
+    background-position: 10px 20px, 70px 90px;
+    opacity: .18;
+    animation: estrelasFinal 18s linear infinite;
+}
+
+#aniversario.final-cinematografico > * {
+    position: relative;
+    z-index: 2;
+}
+
+.final-cinema-conteudo {
+    max-width: 850px;
+    opacity: 0;
+    transform: translateY(35px) scale(.96);
+    transition: opacity 1.2s ease, transform 1.2s cubic-bezier(.22,1,.36,1);
+}
+
+#aniversario.final-cinematografico.final-visivel .final-cinema-conteudo {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.final-cinema-pequena {
+    margin-bottom: 18px;
+    color: #93c5fd;
+    font-size: .85rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.final-cinema-coracao {
+    display: block;
+    margin-bottom: 20px;
+    font-size: clamp(4rem, 12vw, 7rem);
+    line-height: 1;
+    filter: drop-shadow(0 0 28px rgba(59,130,246,.65));
+    animation: pulsarFinal 2.8s ease-in-out infinite;
+}
+
+.final-cinema-conteudo h2 {
+    margin-bottom: 25px;
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    color: #fff;
+    font-size: clamp(2.4rem, 8vw, 5rem);
+    line-height: 1.05;
+    text-shadow: 0 0 35px rgba(96,165,250,.28);
+}
+
+.final-cinema-frase {
+    max-width: 650px !important;
+    margin: 0 auto 30px !important;
+    color: #dbeafe;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+}
+
+.final-cinema-assinatura {
+    color: rgba(255,255,255,.7);
+    font-size: .95rem;
+    font-style: italic;
+}
+
+.final-cinema-linha {
+    width: 70px;
+    height: 2px;
+    margin: 28px auto;
+    border-radius: 99px;
+    background: #60a5fa;
+    box-shadow: 0 0 18px rgba(96,165,250,.45);
+}
+
+@keyframes respirarFinal {
+    0%,100% { transform: scale(1); opacity: .8; }
+    50% { transform: scale(1.08); opacity: 1; }
+}
+
+@keyframes estrelasFinal {
+    from { transform: translateY(0); }
+    to { transform: translateY(110px); }
+}
+
+@keyframes pulsarFinal {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+@media (max-width: 600px) {
+    .extra-caixa {
+        padding: 38px 20px 28px;
+        border-radius: 22px;
+    }
+
+    .extra-caixa p {
+        font-size: .95rem;
+    }
+
+    .easter-egg-coracao {
+        margin-top: 28px;
+    }
+
+    .final-cinema-pequena {
+        letter-spacing: 2.5px;
+    }
+
+    .final-cinema-conteudo h2 {
+        font-size: clamp(2.3rem, 11vw, 4rem);
+    }
+}
+
+/* =========================================================
+   EASTER EGG — CORAÇÃO SECRETO
+========================================================= */
+
+.easter-egg-container {
+
+    margin-top: 45px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+/* ---------------------------------------------------------
+   CORAÇÃO
+--------------------------------------------------------- */
+
+.easter-egg-coracao {
+
+    width: 58px;
+    height: 58px;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(59, 130, 246, 0.10);
+
+    color: white;
+
+    font-size: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 0 rgba(59, 130, 246, 0);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/* ---------------------------------------------------------
+   HOVER — COMPUTADOR
+--------------------------------------------------------- */
+
+.easter-egg-coracao:hover {
+
+    transform: scale(1.12);
+
+    background:
+        rgba(59, 130, 246, 0.18);
+
+    box-shadow:
+        0 0 25px rgba(59, 130, 246, 0.20);
+
+}
+
+
+/* ---------------------------------------------------------
+   CLIQUE
+--------------------------------------------------------- */
+
+.easter-egg-coracao:active {
+
+    transform: scale(0.88);
+
+}
+
+
+/* ---------------------------------------------------------
+   ANIMAÇÃO DO CORAÇÃO
+--------------------------------------------------------- */
+
+.easter-egg-coracao.pulsar {
+
+    animation:
+        pulsarCoracao 0.45s ease;
+
+}
+
+
+@keyframes pulsarCoracao {
+
+    0% {
+
+        transform:
+            scale(1);
+
+    }
+
+    40% {
+
+        transform:
+            scale(1.35);
+
+    }
+
+    70% {
+
+        transform:
+            scale(0.92);
+
+    }
+
+    100% {
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   CONTADOR SECRETO
+--------------------------------------------------------- */
+
+.easter-egg-contador {
+
+    min-height: 22px;
+
+    margin-top: 10px;
+
+    font-size: 0.75rem;
+
+    color:
+        rgba(147, 197, 253, 0.55);
+
+    opacity: 0;
+
+    transition:
+        opacity 0.3s ease;
+
+}
+
+
+.easter-egg-contador.mostrar {
+
+    opacity: 1;
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.easter-egg-modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 25px;
+
+    background:
+        rgba(3, 8, 18, 0.88);
+
+    backdrop-filter:
+        blur(8px);
+
+    -webkit-backdrop-filter:
+        blur(8px);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.4s ease,
+        visibility 0.4s ease;
+
+}
+
+
+.easter-egg-modal.aberto {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+
+}
+
+
+/* =========================================================
+   CONTEÚDO DO MODAL
+========================================================= */
+
+.easter-egg-conteudo {
+
+    position: relative;
+
+    width: min(92vw, 480px);
+
+    padding: 40px 28px 32px;
+
+    border-radius: 28px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0d2340,
+            #07111f
+        );
+
+    border:
+        1px solid
+        rgba(96, 165, 250, 0.20);
+
+    box-shadow:
+        0 30px 80px
+        rgba(0, 0, 0, 0.55);
+
+    transform:
+        translateY(25px)
+        scale(0.92);
+
+    transition:
+        transform 0.45s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+
+}
+
+
+.easter-egg-modal.aberto
+.easter-egg-conteudo {
+
+    transform:
+        translateY(0)
+        scale(1);
+
+}
+
+
+/* =========================================================
+   ÍCONE
+========================================================= */
+
+.easter-egg-icone {
+
+    font-size: 48px;
+
+    margin-bottom: 20px;
+
+    animation:
+        flutuarCoracao 2.5s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes flutuarCoracao {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-7px);
+
+    }
+
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.easter-egg-conteudo h2 {
+
+    margin-bottom: 20px;
+
+    font-size: 1.45rem;
+
+    color: #ffffff;
+
+}
+
+
+/* =========================================================
+   TEXTOS
+========================================================= */
+
+.easter-egg-conteudo p {
+
+    margin-bottom: 12px;
+
+    color:
+        rgba(255, 255, 255, 0.78);
+
+}
+
+
+.easter-egg-conteudo
+.easter-egg-destaque {
+
+    margin-top: 22px;
+
+    font-size: 1.05rem;
+
+    color:
+        #93c5fd;
+
+}
+
+
+.easter-egg-assinatura {
+
+    margin-top: 20px;
+
+    margin-bottom: 25px;
+
+    font-size: 0.95rem;
+
+    color:
+        rgba(255, 255, 255, 0.55);
+
+}
+
+
+/* =========================================================
+   BOTÃO
+========================================================= */
+
+.btn-easter-egg {
+
+    padding:
+        11px 22px;
+
+    border:
+        1px solid
+        rgba(96, 165, 250, 0.30);
+
+    border-radius: 30px;
+
+    background:
+        rgba(59, 130, 246, 0.12);
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 0.9rem;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease;
+
+}
+
+
+.btn-easter-egg:hover {
+
+    transform:
+        translateY(-2px);
+
+    background:
+        rgba(59, 130, 246, 0.22);
+
+    border-color:
+        rgba(96, 165, 250, 0.55);
+
+}
+
+
+.btn-easter-egg:active {
+
+    transform:
+        scale(0.96);
+
+}
+
+
+/* =========================================================
+   BOTÃO X
+========================================================= */
+
+.easter-egg-fechar {
+
+    position: absolute;
+
+    top: 14px;
+    right: 16px;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.06);
+
+    color:
+        rgba(255, 255, 255, 0.75);
+
+    font-size: 24px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+
+}
+
+
+.easter-egg-fechar:hover {
+
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    color: #ffffff;
+
+    transform:
+        rotate(90deg);
+
+}
+
+
+/* =========================================================
+   TELEMÓVEL
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .easter-egg-container {
+
+        margin-top: 35px;
+
+    }
+
+
+    .easter-egg-coracao {
+
+        width: 54px;
+        height: 54px;
+
+        font-size: 26px;
+
+    }
+
+
+    .easter-egg-conteudo {
+
+        padding:
+            38px 22px 28px;
+
+        border-radius:
+            24px;
+
+    }
+
+
+    .easter-egg-conteudo h2 {
+
+        font-size:
+            1.25rem;
+
+    }
+
+
+    .easter-egg-conteudo p {
+
+        font-size:
+            0.95rem;
+
+    }
+
+}
+
+/* =========================================================
+   FASE 3 — CÁPSULA DO TEMPO
+========================================================= */
+
+
+/* =========================================================
+   CARTÃO DA CÁPSULA
+========================================================= */
+
+.capsula-tempo-container {
+
+    width: 100%;
+
+    margin-top: 55px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+}
+
+
+.capsula-tempo-cartao {
+
+    position: relative;
+
+    width: min(
+        92vw,
+        520px
+    );
+
+    padding: 38px 28px 34px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(13, 35, 64, 0.95),
+            rgba(7, 17, 31, 0.98)
+        );
+
+    border: 1px solid
+        rgba(
+            96,
+            165,
+            250,
+            0.18
+        );
+
+    box-shadow:
+        0 20px 60px
+        rgba(
+            0,
+            0,
+            0,
+            0.30
+        );
+
+    overflow: hidden;
+
+}
+
+
+/* brilho subtil */
+
+.capsula-tempo-cartao::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+
+    height: 180px;
+
+    top: -90px;
+
+    right: -70px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            59,
+            130,
+            246,
+            0.10
+        );
+
+    filter: blur(10px);
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   ÍCONE
+========================================================= */
+
+.capsula-tempo-icone {
+
+    position: relative;
+
+    font-size: 48px;
+
+    margin-bottom: 18px;
+
+    animation:
+        flutuarCapsula
+        3s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes flutuarCapsula {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-7px);
+
+    }
+
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.capsula-tempo-cartao h2 {
+
+    position: relative;
+
+    margin-bottom: 15px;
+
+    color:
+        #ffffff;
+
+    font-size:
+        1.45rem;
+
+}
+
+
+.capsula-tempo-cartao p {
+
+    position: relative;
+
+    margin-bottom: 12px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.76
+        );
+
+}
+
+
+.capsula-tempo-subtexto {
+
+    font-size:
+        0.95rem;
+
+    color:
+        rgba(
+            147,
+            197,
+            253,
+            0.70
+        ) !important;
+
+}
+
+
+/* =========================================================
+   BOTÃO
+========================================================= */
+
+.btn-capsula-tempo {
+
+    position: relative;
+
+    margin-top: 20px;
+
+    padding:
+        12px
+        24px;
+
+    border:
+        1px solid
+        rgba(
+            96,
+            165,
+            250,
+            0.35
+        );
+
+    border-radius:
+        30px;
+
+    background:
+        rgba(
+            59,
+            130,
+            246,
+            0.12
+        );
+
+    color:
+        #ffffff;
+
+    font-family:
+        inherit;
+
+    font-size:
+        0.95rem;
+
+    cursor:
+        pointer;
+
+    transition:
+        transform
+        0.3s
+        ease,
+
+        background
+        0.3s
+        ease,
+
+        box-shadow
+        0.3s
+        ease;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
+}
+
+
+.btn-capsula-tempo:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
+        rgba(
+            59,
+            130,
+            246,
+            0.22
+        );
+
+    box-shadow:
+        0 8px 25px
+        rgba(
+            59,
+            130,
+            246,
+            0.16
+        );
+
+}
+
+
+.btn-capsula-tempo:active {
+
+    transform:
+        scale(0.96);
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.capsula-tempo-modal {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    z-index:
+        9998;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        22px;
+
+    background:
+        rgba(
+            3,
+            8,
+            18,
+            0.90
+        );
+
+    backdrop-filter:
+        blur(9px);
+
+    -webkit-backdrop-filter:
+        blur(9px);
+
+    opacity:
+        0;
+
+    visibility:
+        hidden;
+
+    pointer-events:
+        none;
+
+    transition:
+        opacity
+        0.4s
+        ease,
+
+        visibility
+        0.4s
+        ease;
+
+}
+
+
+.capsula-tempo-modal.aberto {
+
+    opacity:
+        1;
+
+    visibility:
+        visible;
+
+    pointer-events:
+        auto;
+
+}
+
+
+/* =========================================================
+   CONTEÚDO DO MODAL
+========================================================= */
+
+.capsula-tempo-conteudo {
+
+    position:
+        relative;
+
+    width:
+        min(
+            94vw,
+            560px
+        );
+
+    max-height:
+        88vh;
+
+    overflow-y:
+        auto;
+
+    padding:
+        42px
+        30px
+        30px;
+
+    border-radius:
+        30px;
+
+    text-align:
+        center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0d2340,
+            #07111f
+        );
+
+    border:
+        1px solid
+        rgba(
+            96,
+            165,
+            250,
+            0.22
+        );
+
+    box-shadow:
+        0 30px 90px
+        rgba(
+            0,
+            0,
+            0,
+            0.60
+        );
+
+    transform:
+        translateY(30px)
+        scale(0.92);
+
+    transition:
+        transform
+        0.45s
+        cubic-bezier(
+            .22,
+            1,
+            .36,
+            1
+        );
+
+}
+
+
+.capsula-tempo-modal.aberto
+.capsula-tempo-conteudo {
+
+    transform:
+        translateY(0)
+        scale(1);
+
+}
+
+
+/* =========================================================
+   BOTÃO X
+========================================================= */
+
+.capsula-tempo-fechar {
+
+    position:
+        absolute;
+
+    top:
+        14px;
+
+    right:
+        16px;
+
+    width:
+        36px;
+
+    height:
+        36px;
+
+    border:
+        none;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.75
+        );
+
+    font-size:
+        24px;
+
+    line-height:
+        1;
+
+    cursor:
+        pointer;
+
+    transition:
+        background
+        0.3s
+        ease,
+
+        transform
+        0.3s
+        ease;
+
+}
+
+
+.capsula-tempo-fechar:hover {
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.12
+        );
+
+    transform:
+        rotate(90deg);
+
+}
+
+
+/* =========================================================
+   ÍCONE GRANDE
+========================================================= */
+
+.capsula-tempo-grande-icone {
+
+    font-size:
+        52px;
+
+    margin-bottom:
+        15px;
+
+}
+
+
+/* =========================================================
+   PEQUENO TÍTULO
+========================================================= */
+
+.capsula-tempo-pequeno-titulo {
+
+    margin-bottom:
+        12px;
+
+    font-size:
+        0.72rem;
+
+    letter-spacing:
+        3px;
+
+    color:
+        rgba(
+            147,
+            197,
+            253,
+            0.65
+        );
+
+}
+
+
+/* =========================================================
+   TÍTULO PRINCIPAL
+========================================================= */
+
+.capsula-tempo-conteudo h2 {
+
+    margin-bottom:
+        25px;
+
+    color:
+        #ffffff;
+
+    font-size:
+        1.55rem;
+
+}
+
+
+/* =========================================================
+   MENSAGEM
+========================================================= */
+
+.capsula-tempo-mensagem {
+
+    text-align:
+        left;
+
+}
+
+
+.capsula-tempo-mensagem p {
+
+    margin-bottom:
+        18px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.80
+        );
+
+}
+
+
+.capsula-tempo-mensagem strong {
+
+    color:
+        #93c5fd;
+
+}
+
+
+/* =========================================================
+   FRASE DE DESTAQUE
+========================================================= */
+
+.capsula-tempo-destaque {
+
+    margin:
+        28px
+        0;
+
+    padding:
+        18px
+        20px;
+
+    border-left:
+        3px
+        solid
+        #60a5fa;
+
+    border-radius:
+        0
+        15px
+        15px
+        0;
+
+    background:
+        rgba(
+            59,
+            130,
+            246,
+            0.08
+        );
+
+    color:
+        #93c5fd !important;
+
+    font-size:
+        1.05rem;
+
+    font-style:
+        italic;
+
+}
+
+
+/* =========================================================
+   ASSINATURA
+========================================================= */
+
+.capsula-tempo-assinatura {
+
+    margin-top:
+        25px;
+
+    margin-bottom:
+        25px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.58
+        );
+
+    font-size:
+        0.92rem;
+
+}
+
+
+/* =========================================================
+   BOTÃO FECHAR
+========================================================= */
+
+.btn-capsula-fechar {
+
+    padding:
+        11px
+        22px;
+
+    border:
+        1px solid
+        rgba(
+            96,
+            165,
+            250,
+            0.30
+        );
+
+    border-radius:
+        30px;
+
+    background:
+        rgba(
+            59,
+            130,
+            246,
+            0.12
+        );
+
+    color:
+        #ffffff;
+
+    font-family:
+        inherit;
+
+    cursor:
+        pointer;
+
+    transition:
+        transform
+        0.3s
+        ease,
+
+        background
+        0.3s
+        ease;
+
+}
+
+
+.btn-capsula-fechar:hover {
+
+    transform:
+        translateY(-2px);
+
+    background:
+        rgba(
+            59,
+            130,
+            246,
+            0.22
+        );
+
+}
+
+
+.btn-capsula-fechar:active {
+
+    transform:
+        scale(0.96);
+
+}
+
+
+/* =========================================================
+   TELEMÓVEL
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .capsula-tempo-container {
+
+        margin-top:
+            40px;
+
+    }
+
+
+    .capsula-tempo-cartao {
+
+        width:
+            94vw;
+
+        padding:
+            32px
+            20px
+            28px;
+
+        border-radius:
+            24px;
+
+    }
+
+
+    .capsula-tempo-cartao h2 {
+
+        font-size:
+            1.25rem;
+
+    }
+
+
+    .capsula-tempo-cartao p {
+
+        font-size:
+            0.94rem;
+
+    }
+
+
+    .capsula-tempo-conteudo {
+
+        width:
+            95vw;
+
+        max-height:
+            90vh;
+
+        padding:
+            40px
+            21px
+            26px;
+
+        border-radius:
+            24px;
+
+    }
+
+
+    .capsula-tempo-conteudo h2 {
+
+        font-size:
+            1.3rem;
+
+    }
+
+
+    .capsula-tempo-mensagem p {
+
+        font-size:
+            0.94rem;
+
+    }
+
+
+    .capsula-tempo-destaque {
+
+        font-size:
+            0.98rem;
+
+    }
+
+}
+
+/* =========================================================
+   CÁPSULA DO TEMPO — SECÇÃO FINAL
+========================================================= */
+
+#capsula-final {
+    min-height: auto;
+    padding: 110px 25px 100px;
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            rgba(59, 130, 246, 0.14),
+            transparent 45%
+        ),
+        #07111f;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(147, 197, 253, 0.08);
+}
+
+#capsula-final .capsula-tempo-container {
+    margin-top: 0;
+}
+
+.capsula-final-pretitulo {
+    margin-bottom: 18px;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #93c5fd;
+    opacity: 0.8;
+}
+
+#capsula-final .capsula-tempo-cartao {
+    position: relative;
+    max-width: 650px;
+    width: 100%;
+}
+
+
+/* =========================================================
+   🎬 FINAL CINEMATOGRÁFICO
+   ========================================================= */
+
+.final-cinematografico {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    width: 100%;
+    height: 100dvh;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(59, 130, 246, 0.12),
+            transparent 38%
+        ),
+        #02050b;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 1.5s ease,
+        visibility 1.5s ease;
+}
+
+/* Quando o cinema está ativo */
+.final-cinematografico.ativo {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   CONTEÚDO CENTRAL
+   ========================================================= */
+
+.cinema-conteudo {
+    position: relative;
+    z-index: 5;
+
+    width: min(900px, 90%);
+    min-height: 220px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   TEXTO DA SEQUÊNCIA
+   ========================================================= */
+
+.cinema-texto {
+    margin: 0;
+
+    max-width: 850px;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: clamp(1.35rem, 3vw, 2.4rem);
+
+    line-height: 1.6;
+
+    letter-spacing: 0.5px;
+
+    color: rgba(255, 255, 255, 0.94);
+
+    text-shadow:
+        0 0 25px rgba(255, 255, 255, 0.08);
+
+    opacity: 0;
+    transform: translateY(18px);
+
+    transition:
+        opacity 1.4s ease,
+        transform 1.4s ease;
+}
+
+
+/* Texto visível */
+.cinema-texto.mostrar {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   FRASES ESPECIAIS
+   ========================================================= */
+
+.cinema-texto.destaque {
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+
+    font-weight: bold;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 15px rgba(96, 165, 250, 0.35),
+        0 0 45px rgba(59, 130, 246, 0.2);
+}
+
+.cinema-texto.azul {
+    color: #93c5fd;
+
+    text-shadow:
+        0 0 20px rgba(96, 165, 250, 0.35);
+}
+
+.cinema-texto.grande-final {
+    font-size: clamp(2.2rem, 6vw, 5rem);
+
+    font-weight: bold;
+
+    color: #ffffff;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 20px rgba(96, 165, 250, 0.5),
+        0 0 60px rgba(59, 130, 246, 0.3);
+}
+
+
+/* =========================================================
+   LUZES FLUTUANTES
+   ========================================================= */
+
+.cinema-luzes {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    overflow: hidden;
+}
+
+.cinema-luzes span {
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #60a5fa;
+
+    opacity: 0;
+
+    box-shadow:
+        0 0 12px rgba(96, 165, 250, 0.8),
+        0 0 25px rgba(59, 130, 246, 0.5);
+
+    animation: cinemaParticula 7s linear infinite;
+}
+
+.cinema-luzes span:nth-child(1) {
+    left: 12%;
+    top: 85%;
+    animation-delay: 0s;
+}
+
+.cinema-luzes span:nth-child(2) {
+    left: 28%;
+    top: 70%;
+    animation-delay: 1.5s;
+}
+
+.cinema-luzes span:nth-child(3) {
+    left: 47%;
+    top: 90%;
+    animation-delay: 3s;
+}
+
+.cinema-luzes span:nth-child(4) {
+    left: 65%;
+    top: 75%;
+    animation-delay: 2s;
+}
+
+.cinema-luzes span:nth-child(5) {
+    left: 82%;
+    top: 88%;
+    animation-delay: 4s;
+}
+
+.cinema-luzes span:nth-child(6) {
+    left: 92%;
+    top: 60%;
+    animation-delay: 5s;
+}
+
+@keyframes cinemaParticula {
+
+    0% {
+        transform:
+            translateY(30px)
+            scale(0.5);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.7;
+    }
+
+    70% {
+        opacity: 0.35;
+    }
+
+    100% {
+        transform:
+            translateY(-90vh)
+            scale(1.2);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   BARRA INFERIOR
+   ========================================================= */
+
+.cinema-barra-inferior {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 22px;
+
+    z-index: 6;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 18px;
+
+    font-size: 0.7rem;
+
+    letter-spacing: 5px;
+
+    color: rgba(255, 255, 255, 0.25);
+}
+
+
+/* =========================================================
+   BOTÃO REVER
+   ========================================================= */
+
+.cinema-rever {
+    position: absolute;
+
+    left: 50%;
+    bottom: 70px;
+
+    transform:
+        translateX(-50%)
+        translateY(15px);
+
+    z-index: 10;
+
+    padding: 12px 22px;
+
+    border: 1px solid rgba(147, 197, 253, 0.25);
+
+    border-radius: 999px;
+
+    background:
+        rgba(255, 255, 255, 0.04);
+
+    color:
+        rgba(255, 255, 255, 0.7);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 0.9rem;
+
+    cursor: pointer;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease,
+        background 0.3s ease,
+        color 0.3s ease;
+}
+
+
+/* Botão aparece no final */
+.final-cinematografico.finalizado
+    .cinema-rever {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+
+.cinema-rever:hover {
+    background:
+        rgba(59, 130, 246, 0.15);
+
+    color: #ffffff;
+
+    border-color:
+        rgba(147, 197, 253, 0.45);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .cinema-conteudo {
+        width: 86%;
+        min-height: 260px;
+    }
+
+    .cinema-texto {
+        font-size: 1.25rem;
+        line-height: 1.7;
+    }
+
+    .cinema-texto.destaque {
+        font-size: 1.8rem;
+    }
+
+    .cinema-texto.grande-final {
+        font-size: 2.4rem;
+        line-height: 1.35;
+    }
+
+    .cinema-barra-inferior {
+        bottom: 18px;
+    }
+
+    .cinema-rever {
+        bottom: 62px;
+        font-size: 0.8rem;
+    }
+}
+

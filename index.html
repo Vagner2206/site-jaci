@@ -1397,6 +1397,7 @@
         </p>
 
 
+
         <!-- =========================
              MÚSICA
         ========================== -->
@@ -1503,6 +1504,99 @@
         </p>
 
     </div>
+
+    <!-- =====================================================
+     EASTER EGG — CORAÇÃO SECRETO
+====================================================== -->
+
+<div class="easter-egg-container">
+
+    <button
+        id="easterEggCoracao"
+        class="easter-egg-coracao"
+        type="button"
+        aria-label="Um pequeno coração azul"
+    >
+        💙
+    </button>
+
+    <p
+        id="easterEggContador"
+        class="easter-egg-contador"
+        aria-hidden="true"
+    ></p>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL DO EASTER EGG
+====================================================== -->
+
+<div
+    id="easterEggModal"
+    class="easter-egg-modal"
+    aria-hidden="true"
+>
+
+    <div
+        class="easter-egg-conteudo"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="easterEggTitulo"
+    >
+
+        <button
+            id="fecharEasterEgg"
+            class="easter-egg-fechar"
+            type="button"
+            aria-label="Fechar mensagem secreta"
+        >
+            ×
+        </button>
+
+
+        <div class="easter-egg-icone">
+            💙
+        </div>
+
+
+        <h2 id="easterEggTitulo">
+            👀 Encontraste uma coisa secreta...
+        </h2>
+
+
+        <p>
+            Não era suposto encontrares isto tão facilmente.
+        </p>
+
+
+        <p>
+            Mas já que chegaste até aqui...
+        </p>
+
+
+        <p class="easter-egg-destaque">
+            Eu deixei isto aqui só para ti. 💙
+        </p>
+
+
+        <p class="easter-egg-assinatura">
+            — V
+        </p>
+
+
+        <button
+            id="botaoFecharEasterEgg"
+            class="btn-easter-egg"
+            type="button"
+        >
+            Fechar 💙
+        </button>
+
+    </div>
+
+</div>
 
 </section>
 
@@ -1783,8 +1877,6 @@
      ANIVERSÁRIO
 ========================== -->
 
-<section id="aniversario">
-
     <section id="aniversario" class="secao-aniversario">
 
     <h2>Feliz Aniversário, Jacileth 💙</h2>
@@ -1805,9 +1897,203 @@
 
 </section>
 
+<!-- =====================================================
+     CÁPSULA DO TEMPO — ÚLTIMO CAPÍTULO
+====================================================== -->
+
+<section id="capsula-final">
+
+    <div class="capsula-tempo-container">
+
+        <div class="capsula-tempo-cartao">
+
+            <p class="capsula-final-pretitulo">
+                ANTES DE IRES...
+            </p>
+
+            <div class="capsula-tempo-icone">
+                🔮
+            </div>
+
+            <h2>
+                Uma mensagem para o futuro
+            </h2>
+
+            <p>
+                Existe uma última coisa que deixei aqui.
+            </p>
+
+            <p class="capsula-tempo-subtexto">
+                Não é para leres apenas hoje...
+            </p>
+
+            <button
+                id="abrirCapsulaTempo"
+                class="btn-capsula-tempo"
+                type="button"
+            >
+                Abrir cápsula do tempo 🔮
+            </button>
+
+        </div>
+
+    </div>
+
 </section>
 
+<!-- =====================================================
+     MODAL — CÁPSULA DO TEMPO
+====================================================== -->
 
+<div
+    id="capsulaTempoModal"
+    class="capsula-tempo-modal"
+    aria-hidden="true"
+>
+
+    <div
+        class="capsula-tempo-conteudo"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="capsulaTempoTitulo"
+    >
+
+        <button
+            id="fecharCapsulaTempo"
+            class="capsula-tempo-fechar"
+            type="button"
+            aria-label="Fechar cápsula do tempo"
+        >
+            ×
+        </button>
+
+
+        <div class="capsula-tempo-grande-icone">
+            🔮
+        </div>
+
+
+        <p class="capsula-tempo-pequeno-titulo">
+            PARA O NOSSO FUTURO
+        </p>
+
+
+        <h2 id="capsulaTempoTitulo">
+            Se um dia voltares aqui...
+        </h2>
+
+
+        <div class="capsula-tempo-mensagem">
+
+            <p>
+                Espero que, quando voltares a ler isto,
+                ainda consigas sorrir ao lembrar de como
+                tudo começou.
+            </p>
+
+
+            <p>
+                Talvez muita coisa tenha mudado.
+                Talvez tenhamos vivido momentos que hoje
+                nem conseguimos imaginar.
+            </p>
+
+
+            <p>
+                Mas existe uma coisa que eu espero que
+                nunca mude:
+                <strong>
+                    o carinho que existe entre nós.
+                </strong>
+            </p>
+
+
+            <p>
+                Esta página foi criada para guardar um
+                pequeno pedaço do que sentimos hoje.
+            </p>
+
+
+            <p>
+                E se um dia voltares aqui depois de muito
+                tempo, espero que olhes para tudo isto
+                e penses:
+            </p>
+
+
+            <p class="capsula-tempo-destaque">
+                “Nós realmente vivemos tudo isso.” 💙
+            </p>
+
+        </div>
+
+
+        <p class="capsula-tempo-assinatura">
+            Com carinho,<br>
+            alguém que espera continuar a escrever
+            esta história contigo. ❤️
+        </p>
+
+
+        <button
+            id="botaoFecharCapsula"
+            class="btn-capsula-fechar"
+            type="button"
+        >
+            Guardar esta mensagem 💙
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+     🎬 FINAL CINEMATOGRÁFICO
+     ========================================================= -->
+
+<div
+    id="finalCinematografico"
+    class="final-cinematografico"
+    aria-hidden="true"
+>
+
+    <!-- Pequenas luzes de fundo -->
+    <div class="cinema-luzes" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Conteúdo da sequência -->
+    <div class="cinema-conteudo">
+
+        <p
+            id="cinemaTexto"
+            class="cinema-texto"
+        ></p>
+
+    </div>
+
+    <!-- Barra inferior estilo filme -->
+    <div class="cinema-barra-inferior">
+        <span>J</span>
+        <span>❤️</span>
+        <span>V</span>
+    </div>
+
+    <!-- Botão que aparece apenas no final -->
+    <button
+        id="cinemaRever"
+        class="cinema-rever"
+        type="button"
+    >
+        Rever a surpresa ↺
+    </button>
+
+</div>
 
 <!-- =========================
      FINAL
